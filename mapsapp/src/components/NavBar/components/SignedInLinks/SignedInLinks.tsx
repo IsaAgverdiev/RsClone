@@ -5,13 +5,16 @@ function SignedInLinks() {
   return (
     <ul>
       <li>
-        <NavLink to='/'>Маршруты</NavLink>
+        <NavLink to='home'>Home</NavLink>
       </li>
       <li>
-        <NavLink to='/'>Выйти</NavLink>
+        <NavLink to='main'>Main</NavLink>
       </li>
       <li>
         <NavLink to='/'>NN</NavLink>
+      </li>
+      <li>
+        <NavLink to='/'>Log Out</NavLink>
       </li>
     </ul>
   );

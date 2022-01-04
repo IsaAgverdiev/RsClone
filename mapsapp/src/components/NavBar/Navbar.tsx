@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
     <nav className='nav-wrapper'>
       <div className='container'>
         <Grid>
-          <Link to='/' className='nav-logo'>
+          <Link to='home' className='nav-logo'>
             Maps App
           </Link>
           <SignedOutLinks />
