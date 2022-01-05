@@ -1,10 +1,10 @@
 import React from 'react';
-import './styles/App.css';
-import { BrowserRouter, Router } from 'react-router-dom';
+import './styles/App.scss';
+import { BrowserRouter } from 'react-router-dom';
 import Navbar from './components/NavBar';
 import AppRouter from './components/AppRouter';
 
-export const isAuth: boolean = true;
+export const isAuth: boolean = false;
 
 const App: React.FC = () => {
   return (

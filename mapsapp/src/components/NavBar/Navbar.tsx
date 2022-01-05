@@ -1,31 +1,45 @@
 import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
 import { Link } from 'react-router-dom';
 import SignedInLinks from './components/SignedInLinks';
 import SignedOutLinks from './components/SignedOutLinks';
 import { isAuth } from '../../App';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
+import './Navbar.scss';
 
 const Navbar: React.FC = () => {
   return isAuth ? (
-    <nav className='nav-wrapper'>
-      <div className='container'>
-        <Link to='/' className='nav-logo'>
-          Maps App
-        </Link>
-        <SignedInLinks />
-      </div>
-    </nav>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position='static'>
+        <Toolbar>
+          <Box className='menu'>
+            <Link to='/home' className='nav-logo'>
+              <Typography variant='h6' noWrap sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
+                Maps App
+              </Typography>
+            </Link>
+            <SignedInLinks />
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </Box>
   ) : (
-    <nav className='nav-wrapper'>
-      <div className='container'>
-        <Grid>
-          <Link to='home' className='nav-logo'>
-            Maps App
-          </Link>
-          <SignedOutLinks />
-        </Grid>
-      </div>
-    </nav>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position='static'>
+        <Toolbar>
+          <Box className='menu'>
+            <Link to='home' className='nav-logo'>
+              <Typography variant='h6' noWrap sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
+                Maps App
+              </Typography>
+            </Link>
+            <SignedOutLinks />
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 
