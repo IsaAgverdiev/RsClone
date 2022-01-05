@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Navbar from './components/NavBar';
 import AppRouter from './components/AppRouter';
 
-export const isAuth: boolean = false;
+export const isAuth: boolean = true;
 
 const App: React.FC = () => {
   return (
