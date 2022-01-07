@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import AccountMenu from '../../../../pages/Main/components/menu/AccountMenu';
 import './SignedInLinks.scss';
 
 function SignedInLinks() {
@@ -14,7 +15,8 @@ function SignedInLinks() {
             <NavLink to='main'>Main</NavLink>
           </li>
           <li className='nav-item nav-item__right'>
-            <NavLink to='/'>Log Out</NavLink>
+            <AccountMenu />
+            {/* <NavLink to='/'>Log Out</NavLink> */}
           </li>
         </ul>
       </nav>

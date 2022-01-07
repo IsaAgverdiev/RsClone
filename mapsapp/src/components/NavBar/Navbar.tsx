@@ -10,6 +10,8 @@ import { Grid, Typography } from '@mui/material';
 import './Navbar.scss';
 
 const Navbar: React.FC = () => {
+
+ 
   return isAuth ? (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
