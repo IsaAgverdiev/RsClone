@@ -5,12 +5,13 @@ import Toolbar from '@mui/material/Toolbar';
 import { Link } from 'react-router-dom';
 import SignedInLinks from './components/SignedInLinks';
 import SignedOutLinks from './components/SignedOutLinks';
-import { isAuth } from '../../App';
+// import { isAuth } from '../../App';
 import { Typography } from '@mui/material';
 import './Navbar.scss';
 
 const Navbar: React.FC = () => {
 
+  let isAuth = true
  
   return isAuth ? (
     <Box sx={{ flexGrow: 1 }}>
