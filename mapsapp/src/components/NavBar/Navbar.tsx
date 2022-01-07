@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import SignedInLinks from './components/SignedInLinks';
 import SignedOutLinks from './components/SignedOutLinks';
 import { isAuth } from '../../App';
-import { Grid, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import './Navbar.scss';
 
 const Navbar: React.FC = () => {

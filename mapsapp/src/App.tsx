@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './styles/App.scss';
 import { BrowserRouter } from 'react-router-dom';
-import Navbar from './components/NavBar';
 import AppRouter from './components/AppRouter';
+import Navbar from './components/NavBar';
 
 export const isAuth: boolean = true;
 
