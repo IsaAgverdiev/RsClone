@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Routes, Route } from 'react-router-dom';
-// import { isAuth } from '../../App';
+import { isAuth } from '../../App';
 import Home from '../../pages/Home';
 import Main from '../../pages/Main';
 import SignUp from './../auth/SignUp';
@@ -14,25 +14,21 @@ interface AppRouterProps {
   setAuthorized: Dispatch<SetStateAction<boolean>>
 }
 
-const AppRouter = ({authorized, setAuthorized}) => {
-  console.log('%cAppRouter.tsx line:18 authorized', 'color: #007acc;', authorized);
-  console.log('%cAppRouter.tsx line:19 setAuthorized', 'color: #007acc;', setAuthorized);
-  let isAuth = true;
-
+const AppRouter = () => {
+  console.log('%cAppRouter.tsx line:18 isAuth', 'color: #007acc;', isAuth);
   return isAuth ? (
-    <>
-    {/* <Navbar authorized={authorized} setAuthorized={setAuthorized}  /> */}
+
     <Routes>
       <Route path='*' element={<Main />} />
+      <Route path='/home' element={<Home />} />
       <Route path='/main' element={<Main />} />
       <Route path='/sign_up' element={<SignUp />} />
     </Routes>
-    </>
+   
   ) : (
     <Routes>
       <Route path='*' element={<Home />} />
       <Route path='/home' element={<Home />} />
-      <Route path='/main' element={<Main />} />
       <Route path='/sign_up' element={<SignUp />} />
       <Route path='/forgot' element={<Forgot />} />
       <Route path='/sign_in' element={<SignIn />} />

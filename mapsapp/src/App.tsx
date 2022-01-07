@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './components/AppRouter';
 import Navbar from './components/NavBar';
 
+export const isAuth = true;
+
 const App = () => {
   const [isAuth, setIsAuth] = useState(true)
 
@@ -12,7 +14,7 @@ const App = () => {
     <BrowserRouter>
       <div className='App'>
         <Navbar   />
-        <AppRouter authorized={isAuth} setAuthorized={setIsAuth} />
+        <AppRouter />
       </div>
     </BrowserRouter>
   );
