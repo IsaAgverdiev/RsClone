@@ -7,15 +7,13 @@ import SignedInLinks from './components/SignedInLinks';
 import SignedOutLinks from './components/SignedOutLinks';
 import { Typography } from '@mui/material';
 import './Navbar.scss';
-import { Dispatch, SetStateAction } from 'react';
 
 interface NavbarProps {
   authorized: boolean;
-  setAuthorized: Dispatch<SetStateAction<boolean>>
 }
 
-const Navbar:  React.FC<NavbarProps> = ({ authorized, setAuthorized })  => {
- 
+const Navbar:  React.FC<NavbarProps> = ({ authorized })  => {
+  const setAuthorized = () => {};
   return authorized ? (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -26,7 +24,7 @@ const Navbar:  React.FC<NavbarProps> = ({ authorized, setAuthorized })  => {
                 Maps App
               </Typography>
             </Link>
-            <SignedInLinks authorized={authorized} setAuthorized={setAuthorized}/>
+            <SignedInLinks />
           </Box>
         </Toolbar>
       </AppBar>

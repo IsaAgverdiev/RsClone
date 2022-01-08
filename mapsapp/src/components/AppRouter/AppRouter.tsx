@@ -5,16 +5,14 @@ import Main from '../../pages/Main';
 import SignUp from './../auth/SignUp';
 import SignIn from './../auth/SignIn';
 import Forgot from '../auth/Forgot';
-import { Dispatch, SetStateAction } from 'react';
-import Navbar from '../NavBar/Navbar';
 
 interface AppRouterProps {
   authorized: boolean;
+  name: string | null;
 }
 
-const AppRouter: React.FC<AppRouterProps> = ({ authorized })  => {
+const AppRouter: React.FC<AppRouterProps> = ({ authorized, name })  => {
   return authorized ? (
-
     <Routes>
       <Route path='/home' element={<Home />} />
       <Route path='/main' element={<Main />} />

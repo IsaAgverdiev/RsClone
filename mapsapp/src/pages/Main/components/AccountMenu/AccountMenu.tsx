@@ -1,4 +1,4 @@
-import React, { useEffect, Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -12,11 +12,13 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
+import * as UserActions from '../../../../store/actions/userActions';
+
 interface AccountMenuProps {
-  authorized: boolean,
-  setAuthorized: Dispatch<SetStateAction<boolean>>
+  logout: typeof UserActions.logoutAction
 }
-const AccountMenu: React.FC<AccountMenuProps> = ({ authorized, setAuthorized }) => {
+
+const AccountMenu: React.FC<AccountMenuProps> = ({ logout }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -26,8 +28,8 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ authorized, setAuthorized }) 
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const logout = () => {
-    setAuthorized(false);
+  const handleLogout = () => {
+    logout();
     navigate('/sign_in')
   }
 
@@ -101,7 +103,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ authorized, setAuthorized }) 
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={logout}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>  Logout
