@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
 import AccountMenu from '../../../../pages/Main/components/menu/AccountMenu';
 import './SignedInLinks.scss';
 
-function SignedInLinks() {
+interface SignedInLinksProps {
+  authorized: boolean,
+  setAuthorized: Dispatch<SetStateAction<boolean>>
+}
+const SignedInLinks: React.FC<SignedInLinksProps> = ({authorized, setAuthorized})  => {
+
   return (
     <>
       <nav className='nav'>
@@ -15,8 +20,7 @@ function SignedInLinks() {
             <NavLink to='main'>Main</NavLink>
           </li>
           <li className='nav-item nav-item__right'>
-            <AccountMenu />
-            {/* <NavLink to='/'>Log Out</NavLink> */}
+            <AccountMenu authorized={authorized} setAuthorized={setAuthorized}/>
           </li>
         </ul>
       </nav>

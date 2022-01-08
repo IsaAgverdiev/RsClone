@@ -5,14 +5,18 @@ import Toolbar from '@mui/material/Toolbar';
 import { Link } from 'react-router-dom';
 import SignedInLinks from './components/SignedInLinks';
 import SignedOutLinks from './components/SignedOutLinks';
-import { isAuth } from '../../App';
 import { Typography } from '@mui/material';
 import './Navbar.scss';
+import { Dispatch, SetStateAction } from 'react';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  authorized: boolean;
+  setAuthorized: Dispatch<SetStateAction<boolean>>
+}
 
+const Navbar:  React.FC<NavbarProps> = ({ authorized, setAuthorized})  => {
  
-  return isAuth ? (
+  return authorized ? (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
         <Toolbar>
@@ -22,7 +26,7 @@ const Navbar: React.FC = () => {
                 Maps App
               </Typography>
             </Link>
-            <SignedInLinks />
+            <SignedInLinks authorized={authorized} setAuthorized={setAuthorized}/>
           </Box>
         </Toolbar>
       </AppBar>

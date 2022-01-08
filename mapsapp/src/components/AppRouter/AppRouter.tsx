@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { isAuth } from '../../App';
+// import { isAuth } from '../../App';
 import Home from '../../pages/Home';
 import Main from '../../pages/Main';
 import SignUp from './../auth/SignUp';
@@ -11,12 +11,11 @@ import Navbar from '../NavBar/Navbar';
 
 interface AppRouterProps {
   authorized: boolean;
-  setAuthorized: Dispatch<SetStateAction<boolean>>
 }
 
-const AppRouter = () => {
-  console.log('%cAppRouter.tsx line:18 isAuth', 'color: #007acc;', isAuth);
-  return isAuth ? (
+const AppRouter: React.FC<AppRouterProps> = ({ authorized})  => {
+ 
+  return authorized ? (
 
     <Routes>
       <Route path='*' element={<Main />} />
