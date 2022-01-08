@@ -14,7 +14,7 @@ interface NavbarProps {
   setAuthorized: Dispatch<SetStateAction<boolean>>
 }
 
-const Navbar:  React.FC<NavbarProps> = ({ authorized, setAuthorized})  => {
+const Navbar:  React.FC<NavbarProps> = ({ authorized, setAuthorized })  => {
  
   return authorized ? (
     <Box sx={{ flexGrow: 1 }}>
