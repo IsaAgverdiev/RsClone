@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,16 +16,28 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 const SignIn = () => {
-  
+  const [loginValue, setLoginValue] = useState('')
+  const [passwordValue, setPasswordValue] = useState('')
+
+  const handleLoginChange = (event: React.BaseSyntheticEvent) => {
+    const newValue = event.target.value;
+    setLoginValue(newValue);
+  }
+
+  const handlePasswordChange = (event: React.BaseSyntheticEvent) => {
+    const newValue = event.target.value;
+    setPasswordValue(newValue);
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     console.log({
-      email: data.get('login'),
-      password: data.get('password'),
+      email: loginValue,
+      password: passwordValue,
     });
   };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -49,6 +61,8 @@ const SignIn = () => {
               margin='normal'
               required
               fullWidth
+              value={loginValue}
+              onChange={handleLoginChange}
               id='login'
               label='login'
               name='login'
@@ -59,6 +73,8 @@ const SignIn = () => {
               margin='normal'
               required
               fullWidth
+              value={passwordValue}
+              onChange={handlePasswordChange}
               name='password'
               label='Password'
               type='password'

@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -10,16 +11,15 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import { Dispatch, SetStateAction } from 'react';
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+
+import * as UserActions from '../../../../store/actions/userActions';
 
 interface AccountMenuProps {
-  authorized: boolean,
-  setAuthorized: Dispatch<SetStateAction<boolean>>
+  logout: typeof UserActions.logoutAction
 }
-const AccountMenu: React.FC<AccountMenuProps> = ({ authorized, setAuthorized }) => {
 
+const AccountMenu: React.FC<AccountMenuProps> = ({ logout }) => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -28,10 +28,10 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ authorized, setAuthorized }) 
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const logout = () => {
-    setAuthorized(false);
-  
-    }
+  const handleLogout = () => {
+    logout();
+    navigate('/sign_in')
+  }
 
   return (
     <React.Fragment>
@@ -103,7 +103,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ authorized, setAuthorized }) 
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={logout}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>  Logout
