@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
+import AccountMenu from '../../../../pages/Main/components/AccountMenu';
 import './SignedInLinks.scss';
 
-function SignedInLinks() {
+interface SignedInLinksProps {
+}
+
+
+const SignedInLinks: React.FC<SignedInLinksProps> = ()  => {
   return (
     <>
       <nav className='nav'>
@@ -14,7 +19,7 @@ function SignedInLinks() {
             <NavLink to='main'>Main</NavLink>
           </li>
           <li className='nav-item nav-item__right'>
-            <NavLink to='/'>Log Out</NavLink>
+            <AccountMenu />
           </li>
         </ul>
       </nav>

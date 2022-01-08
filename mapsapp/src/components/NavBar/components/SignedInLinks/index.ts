@@ -1,3 +1,1 @@
-import SignedInLinks from './SignedInLinks';
-
-export default SignedInLinks;
+export { default } from './SignedInLinks';

@@ -10,7 +10,7 @@ function SignedOutLinks() {
             <NavLink to='home'>Home</NavLink>
           </li>
           <li className='nav-item nav-item__right'>
-            <NavLink to='/signin'>Sign In</NavLink>
+            <NavLink to='/sign_in'>Sign In</NavLink>
           </li>
         </ul>
       </nav>
