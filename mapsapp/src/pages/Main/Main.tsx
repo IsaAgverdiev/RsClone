@@ -1,5 +1,6 @@
 import * as React from 'react';
-import MapboxMap from './components/Map';
+import MapboxMap from './components/map';
+
 
 const Main: React.FC = () => {
   return (

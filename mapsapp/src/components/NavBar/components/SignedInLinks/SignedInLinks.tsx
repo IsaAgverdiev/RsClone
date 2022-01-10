@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import AccountMenu from '../../../../pages/Main/components/AccountMenu';
 import './SignedInLinks.scss';
