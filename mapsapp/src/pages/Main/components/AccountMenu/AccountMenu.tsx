@@ -115,7 +115,3 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ logout }) => {
 }
 
 export default AccountMenu;
-
-function useHistory() {
-  throw new Error('Function not implemented.');
-}
