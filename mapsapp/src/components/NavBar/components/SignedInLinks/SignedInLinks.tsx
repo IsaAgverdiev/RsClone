@@ -1,14 +1,13 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
-import AccountMenu from '../../../../pages/Main/components/menu/AccountMenu';
+import AccountMenu from '../../../../pages/Main/components/AccountMenu';
 import './SignedInLinks.scss';
 
 interface SignedInLinksProps {
-  authorized: boolean,
-  setAuthorized: Dispatch<SetStateAction<boolean>>
 }
-const SignedInLinks: React.FC<SignedInLinksProps> = ({authorized, setAuthorized})  => {
 
+
+const SignedInLinks: React.FC<SignedInLinksProps> = ()  => {
   return (
     <>
       <nav className='nav'>
@@ -20,7 +19,7 @@ const SignedInLinks: React.FC<SignedInLinksProps> = ({authorized, setAuthorized}
             <NavLink to='main'>Main</NavLink>
           </li>
           <li className='nav-item nav-item__right'>
-            <AccountMenu authorized={authorized} setAuthorized={setAuthorized}/>
+            <AccountMenu />
           </li>
         </ul>
       </nav>

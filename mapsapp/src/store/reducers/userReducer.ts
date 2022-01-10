@@ -1,13 +1,24 @@
-import { createReducer } from "@reduxjs/toolkit"
+import { createReducer } from '@reduxjs/toolkit'
+import * as UserActions from '../actions/userActions';
 
-interface UserState {
-  isAuth: boolean,
+export interface UserState {
+    isAuth: boolean,
+    personalInfo: {
+        name: string
+    }
 }
 
 const initialState: UserState = {
-  isAuth: false,
-
+    isAuth: true,
+    personalInfo: {
+        name: 'Marina'
+    }
 }
 
-const userReducer = createReducer(initialState, (builder) => {})
-builder.addCase()
+const userReducer = createReducer(initialState, (builder) => {
+    builder.addCase(UserActions.logoutAction, (state, action) => {
+        state.isAuth = action.payload
+    })
+})
+
+export default userReducer;
