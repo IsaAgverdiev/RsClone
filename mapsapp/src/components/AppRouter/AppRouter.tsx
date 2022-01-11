@@ -8,7 +8,7 @@ import Forgot from '../auth/Forgot';
 import Feature1 from '../../pages/features/Feature1';
 import Feature2 from '../../pages/features/Feature2';
 import Feature3 from '../../pages/features/Feature3';
-import PersistentDrawerLeft from '../../pages/Main/components/DrawerMenu/DrawerLeft';
+import PersistentDrawerLeft from '../../pages/Main/components/DrawerMenu/DrawerMenu';
 
 interface AppRouterProps {
   authorized: boolean;
