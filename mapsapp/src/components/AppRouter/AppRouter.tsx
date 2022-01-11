@@ -8,6 +8,7 @@ import Forgot from '../auth/Forgot';
 import Feature1 from '../../pages/features/Feature1';
 import Feature2 from '../../pages/features/Feature2';
 import Feature3 from '../../pages/features/Feature3';
+import PersistentDrawerLeft from '../../pages/Main/components/DrawerMenu/DrawerLeft';
 
 interface AppRouterProps {
   authorized: boolean;
@@ -18,7 +19,8 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
   return authorized ? (
     <Routes>
       <Route path='/home' element={<Home />} />
-      <Route path='main' element={<Main />} >
+      {/* <Route path='main' element={<Main />} > */}
+      <Route path='main' element={<PersistentDrawerLeft />} >
         {/* <Route path="Feature1" element={<Feature1 />} />
         <Route path="Feature2" element={<Feature2 />} />
         <Route path="Feature3" element={<Feature3 />} /> */}
