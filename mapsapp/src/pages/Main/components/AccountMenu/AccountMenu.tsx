@@ -32,6 +32,12 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ logout }) => {
     logout();
     navigate('/sign_in')
   }
+  const handleProfile = () => {
+    navigate('/main/profile')
+  }
+  const handleSettings = () => {
+    navigate('/main/settings')
+  }
 
   return (
     <React.Fragment>
@@ -84,7 +90,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ logout }) => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
+        <MenuItem onClick={handleProfile}>
           <Avatar /> Profile
         </MenuItem>
         <MenuItem>
@@ -97,7 +103,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ logout }) => {
           </ListItemIcon>
           Add another account
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleSettings}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>

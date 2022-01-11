@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../../pages/Home';
 import Main from '../../pages/Main';
+import Profile from '../../pages/Profile';
+import Settings from '../../pages/Settings';
 import SignUp from './../auth/SignUp';
 import SignIn from './../auth/SignIn';
 import Forgot from '../auth/Forgot';
@@ -16,6 +18,8 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name })  => {
     <Routes>
       <Route path='/home' element={<Home />} />
       <Route path='/main' element={<Main />} />
+      <Route path='/main/profile' element={<Profile />} />
+      <Route path='/main/settings' element={<Settings />} />
       <Route path='/sign_up' element={<SignUp />} />
       <Route
         path="*"
