@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../../pages/Home';
 import Main from '../../pages/Main';
-import SignUp from './../auth/SignUp';
-import SignIn from './../auth/SignIn';
-import Forgot from '../auth/Forgot';
+import SignUp from '../Auth/SignUp';
+import SignIn from '../Auth/SignIn';
+import Forgot from '../Auth/Forgot';
 
 interface AppRouterProps {
   authorized: boolean;
@@ -22,7 +22,7 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name })  => {
         element={<Navigate to="/main" />}
       />
     </Routes>
-   
+
   ) : (
     <Routes>
       <Route path='/home' element={<Home />} />

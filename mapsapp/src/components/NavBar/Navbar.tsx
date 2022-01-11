@@ -12,14 +12,13 @@ interface NavbarProps {
   authorized: boolean;
 }
 
-const Navbar:  React.FC<NavbarProps> = ({ authorized })  => {
-  const setAuthorized = () => {};
+const Navbar: React.FC<NavbarProps> = ({ authorized }) => {
   return authorized ? (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
         <Toolbar>
           <Box className='menu'>
-            <Link to='home' className='nav-logo'>
+            <Link to='/home' className='nav-logo'>
               <Typography variant='h6' noWrap sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
                 Maps App
               </Typography>
@@ -34,7 +33,7 @@ const Navbar:  React.FC<NavbarProps> = ({ authorized })  => {
       <AppBar position='static'>
         <Toolbar>
           <Box className='menu'>
-            <Link to='home' className='nav-logo'>
+            <Link to='/home' className='nav-logo'>
               <Typography variant='h6' noWrap sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
                 Maps App
               </Typography>
