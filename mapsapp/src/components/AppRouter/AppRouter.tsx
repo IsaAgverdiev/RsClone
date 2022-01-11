@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../../pages/Home';
-import Main from '../../pages/Main';
-import SignUp from './../auth/SignUp';
-import SignIn from './../auth/SignIn';
-import Forgot from '../auth/Forgot';
 import Feature1 from '../../pages/features/Feature1';
 import Feature2 from '../../pages/features/Feature2';
 import Feature3 from '../../pages/features/Feature3';
 import PersistentDrawerLeft from '../../pages/Main/components/DrawerMenu/DrawerMenu';
+import SignUp from '../Auth/SignUp';
+import SignIn from '../Auth/SignIn';
+import Forgot from '../Auth/Forgot';
 
 interface AppRouterProps {
   authorized: boolean;
@@ -19,11 +18,7 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
   return authorized ? (
     <Routes>
       <Route path='/home' element={<Home />} />
-      {/* <Route path='main' element={<Main />} > */}
       <Route path='main' element={<PersistentDrawerLeft />} >
-        {/* <Route path="Feature1" element={<Feature1 />} />
-        <Route path="Feature2" element={<Feature2 />} />
-        <Route path="Feature3" element={<Feature3 />} /> */}
       </Route>
 
       <Route path='/sign_up' element={<SignUp />} />

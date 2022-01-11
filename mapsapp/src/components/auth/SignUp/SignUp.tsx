@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -16,13 +16,39 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 const SignUp = () => {
+  const [firstNameValue, setFirstNameValue] = useState('');
+  const [lastNameValue, setLastNameValue] = useState('');
+  const [loginValue, setLoginValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+
+  const handleFirstNameChange = (event: React.BaseSyntheticEvent) => {
+    const newValue = event.target.value;
+    setFirstNameValue(newValue);
+  };
+
+  const handleLastNameChange = (event: React.BaseSyntheticEvent) => {
+    const newValue = event.target.value;
+    setLastNameValue(newValue);
+  };
+
+  const handleLoginChange = (event: React.BaseSyntheticEvent) => {
+    const newValue = event.target.value;
+    setLoginValue(newValue);
+  };
+
+  const handlePasswordChange = (event: React.BaseSyntheticEvent) => {
+    const newValue = event.target.value;
+    setPasswordValue(newValue);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     console.log({
-      email: data.get('login'),
-      password: data.get('password'),
+      firstName: firstNameValue,
+      lastName: lastNameValue,
+      login: loginValue,
+      password: passwordValue,
     });
   };
 
@@ -50,6 +76,8 @@ const SignUp = () => {
                   autoComplete='given-name'
                   name='firstName'
                   required
+                  value={firstNameValue}
+                  onChange={handleFirstNameChange}
                   fullWidth
                   id='firstName'
                   label='First Name'
@@ -58,19 +86,23 @@ const SignUp = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
-                  fullWidth
                   id='lastName'
                   label='Last Name'
+                  value={lastNameValue}
+                  onChange={handleLastNameChange}
+                  required
+                  fullWidth
                   name='lastName'
                   autoComplete='family-name'
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
-                  fullWidth
                   id='login'
+                  required
+                  value={loginValue}
+                  onChange={handleLoginChange}
+                  fullWidth
                   label='login'
                   name='login'
                   autoComplete='login'
@@ -81,6 +113,8 @@ const SignUp = () => {
                   required
                   fullWidth
                   name='password'
+                  value={passwordValue}
+                  onChange={handlePasswordChange}
                   label='Password'
                   type='password'
                   id='password'
@@ -99,8 +133,10 @@ const SignUp = () => {
             </Button>
             <Grid container justifyContent='flex-end'>
               <Grid item>
-                <Link href='sing_in' variant='body2'>
-                  Sign in
+                <Link to='/sing_in'>
+                  <Typography variant='body2' style={{ color: 'black' }}>
+                    Sign Up
+                  </Typography>
                 </Link>
               </Grid>
             </Grid>
