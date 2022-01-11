@@ -3,9 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -16,18 +14,18 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 const SignIn = () => {
-  const [loginValue, setLoginValue] = useState('')
-  const [passwordValue, setPasswordValue] = useState('')
+  const [loginValue, setLoginValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
 
   const handleLoginChange = (event: React.BaseSyntheticEvent) => {
     const newValue = event.target.value;
     setLoginValue(newValue);
-  }
+  };
 
   const handlePasswordChange = (event: React.BaseSyntheticEvent) => {
     const newValue = event.target.value;
     setPasswordValue(newValue);
-  }
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,7 +35,6 @@ const SignIn = () => {
       password: passwordValue,
     });
   };
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -86,13 +83,17 @@ const SignIn = () => {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href='forgot' variant='body2'>
-                  Forgot password?
+                <Link to='/forgot'>
+                  <Typography variant='body2' style={{ color: 'black' }}>
+                    Forgot password?
+                  </Typography>
                 </Link>
               </Grid>
               <Grid item>
-                <Link href='sign_up' variant='body2'>
-                  {'Sign Up'}
+                <Link to='/sign_up'>
+                  <Typography variant='body2' style={{ color: 'black' }}>
+                    Sign Up
+                  </Typography>
                 </Link>
               </Grid>
             </Grid>

@@ -1,16 +1,23 @@
-import * as React from 'react';
-import MapboxMap from './components/map';
+import { styled} from '@mui/material/styles';
 
-const Main: React.FC = () => {
-  return (
+export const drawerWidth = 240;
 
-    <div className='main-page'>
-      <aside className='aside-menu'>
-        <div>Hi there!</div>
-      </aside>
-      <MapboxMap />
-    </div>
-  );
-};
-
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
+  open?: boolean;
+}>(({ theme, open }) => ({
+  flexGrow: 1,
+  padding: 0,
+  transition: theme.transitions.create('margin', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  marginLeft: `-${drawerWidth}px`,
+  ...(open && {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  }),
+}));
 export default Main;

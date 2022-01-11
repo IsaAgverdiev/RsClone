@@ -15,7 +15,7 @@ import Logout from '@mui/icons-material/Logout';
 import * as UserActions from '../../../../store/actions/userActions';
 
 interface AccountMenuProps {
-  logout: typeof UserActions.logoutAction
+  logout: typeof UserActions.logoutAction;
 }
 
 const AccountMenu: React.FC<AccountMenuProps> = ({ logout }) => {
@@ -42,22 +42,21 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ logout }) => {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title="Account settings">
+        <Tooltip title='Account settings'>
           <IconButton
             onClick={handleClick}
-            size="small"
+            size='small'
             sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-          >
+            aria-haspopup='true'
+            aria-expanded={open ? 'true' : undefined}>
             <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id="account-menu"
+        id='account-menu'
         open={open}
         onClose={handleClose}
         onClick={handleClose}
@@ -99,29 +98,25 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ logout }) => {
         <Divider />
         <MenuItem>
           <ListItemIcon>
-            <PersonAdd fontSize="small" />
+            <PersonAdd fontSize='small' />
           </ListItemIcon>
           Add another account
         </MenuItem>
         <MenuItem onClick={handleSettings}>
           <ListItemIcon>
-            <Settings fontSize="small" />
+            <Settings fontSize='small' />
           </ListItemIcon>
           Settings
         </MenuItem>
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>  Logout
-
+            <Logout fontSize='small' />
+          </ListItemIcon>{' '}
+          Logout
         </MenuItem>
       </Menu>
     </React.Fragment>
   );
-}
+};
 
 export default AccountMenu;
-
-function useHistory() {
-  throw new Error('Function not implemented.');
-}
