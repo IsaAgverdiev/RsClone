@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import SignedInLinks from './components/SignedInLinks';
 import SignedOutLinks from './components/SignedOutLinks';
 import { Typography } from '@mui/material';
+
 import './Navbar.scss';
 
 interface NavbarProps {
