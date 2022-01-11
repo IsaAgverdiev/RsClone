@@ -6,18 +6,21 @@ import { Link } from 'react-router-dom';
 import SignedInLinks from './components/SignedInLinks';
 import SignedOutLinks from './components/SignedOutLinks';
 import { Typography } from '@mui/material';
+
 import './Navbar.scss';
+import BurgerMenu from '../../pages/Main/components/BurgerMenu/BurgerMenu';
 
 interface NavbarProps {
   authorized: boolean;
 }
 
-const Navbar:  React.FC<NavbarProps> = ({ authorized })  => {
- 
+const Navbar: React.FC<NavbarProps> = ({ authorized }) => {
+
   return authorized ? (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
         <Toolbar>
+          <BurgerMenu />
           <Box className='menu'>
             <Link to='home' className='nav-logo'>
               <Typography variant='h6' noWrap sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
