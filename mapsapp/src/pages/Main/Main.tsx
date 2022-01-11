@@ -9,7 +9,6 @@ const Main: React.FC = () => {
     <div className='main-page'>
       <aside className='aside-menu'>
         <DrawerMenu />
-        <div>Hi there!</div>
       </aside>
       <MapboxMap />
     </div>
