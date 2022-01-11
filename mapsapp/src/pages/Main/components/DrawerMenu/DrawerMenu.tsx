@@ -18,9 +18,10 @@ import MailIcon from '@mui/icons-material/Mail';
 import AppBar from '../AppBar/AppBar';
 import Main, { drawerWidth } from '../../Main';
 import MapboxMap from '../Map';
-import NavBar from '../../../../components/NavBar';
 import { NavLink } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
+import SignedInLinks from '../../../../components/NavBar/components/SignedInLinks';
+import { Typography } from '@mui/material';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -48,16 +49,24 @@ export default function DrawerMenu() {
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <NavBar/>
+          <Box className='menu'>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+
+            <Link to='/home' className='nav-logo'>
+              <Typography variant='h6' noWrap sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
+                Maps App
+              </Typography>
+            </Link>
+            <SignedInLinks />
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -80,18 +89,18 @@ export default function DrawerMenu() {
         </DrawerHeader>
         <Divider />
         <List>
-        {['Feature1', 'Feature2', 'Feature3', 'Feature4'].map((text, index) => (
+          {['Feature1', 'Feature2', 'Feature3', 'Feature4'].map((text, index) => (
 
-          <NavLink to={text} key={text}>
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          </NavLink>
-        ))}
-      </List>
+            <NavLink to={text} key={text}>
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </NavLink>
+          ))}
+        </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
