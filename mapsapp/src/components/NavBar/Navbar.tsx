@@ -47,6 +47,3 @@ const Navbar: React.FC<NavbarProps> = ({ authorized }) => {
 };
 
 export default Navbar;
-function UserState(UserState: any) {
-  throw new Error('Function not implemented.');
-}
