@@ -7,7 +7,6 @@ export interface AppState {
     user: UserState
 }
 
-
 export const reducer = {
     user: userReducer,
 }

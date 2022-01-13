@@ -4,10 +4,11 @@ import Home from '../../pages/Home';
 import Feature1 from '../../pages/features/Feature1';
 import Feature2 from '../../pages/features/Feature2';
 import Feature3 from '../../pages/features/Feature3';
-import PersistentDrawerLeft from '../../pages/Main/components/DrawerMenu/DrawerMenu';
 import SignUp from '../Auth/SignUp';
 import SignIn from '../Auth/SignIn';
 import Forgot from '../Auth/Forgot';
+import DrawerMenu from '../../pages/Main/components/DrawerMenu/DrawerMenu';
+import MapboxMap from '../../pages/Main/components/Map';
 
 interface AppRouterProps {
   authorized: boolean;
@@ -18,13 +19,14 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
   return authorized ? (
     <Routes>
       <Route path='/home' element={<Home />} />
-      <Route path='main' element={<PersistentDrawerLeft />} >
+      <Route path='main' element={<DrawerMenu />} >
+        <Route index element={<MapboxMap />}/>
+        <Route path="Feature1" element={<Feature1 />} />
+        <Route path="Feature2" element={<Feature2 />} />
+        <Route path="Feature3" element={<Feature3 />} />
       </Route>
-
       <Route path='/sign_up' element={<SignUp />} />
-      <Route path="main/Feature1" element={<Feature1 />} />
-      <Route path="main/Feature2" element={<Feature2 />} />
-      <Route path="main/Feature3" element={<Feature3 />} />
+
       <Route
         path="*"
         element={<Navigate to="/main" />}

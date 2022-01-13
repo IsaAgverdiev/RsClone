@@ -17,9 +17,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import AppBar from '../AppBar/AppBar';
 import Main, { drawerWidth } from '../../Main';
-import MapboxMap from '../Map';
-import { NavLink } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import SignedInLinks from '../../../../components/NavBar/components/SignedInLinks';
 import { Typography } from '@mui/material';
 
@@ -104,7 +102,7 @@ export default function DrawerMenu() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <MapboxMap />
+        <Outlet />
       </Main>
     </Box>
   );
