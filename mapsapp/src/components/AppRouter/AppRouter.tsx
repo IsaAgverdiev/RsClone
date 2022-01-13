@@ -7,9 +7,8 @@ import Feature3 from '../../pages/features/Feature3';
 import SignUp from '../Auth/SignUp';
 import SignIn from '../Auth/SignIn';
 import Forgot from '../Auth/Forgot';
-import DrawerMenu from '../../pages/Main/components/DrawerMenu/DrawerMenu';
-import MapboxMap from '../../pages/Main/components/Map';
-
+import Main from '../../pages/Main';
+import Map from '../../pages/Main/components/Map'
 interface AppRouterProps {
   authorized: boolean;
   name: string | null;
@@ -19,8 +18,8 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
   return authorized ? (
     <Routes>
       <Route path='/home' element={<Home />} />
-      <Route path='main' element={<DrawerMenu />} >
-        <Route index element={<MapboxMap />}/>
+      <Route path='main' element={<Main />} >
+        <Route index element={<Map />}/>
         <Route path="Feature1" element={<Feature1 />} />
         <Route path="Feature2" element={<Feature2 />} />
         <Route path="Feature3" element={<Feature3 />} />
