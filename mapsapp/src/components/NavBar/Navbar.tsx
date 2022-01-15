@@ -14,6 +14,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ authorized }) => {
+  
   return authorized ? (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>

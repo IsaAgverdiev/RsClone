@@ -14,10 +14,10 @@ const SignedInLinks: React.FC<SignedInLinksProps> = ({ name }) => {
       <nav className='nav'>
         <ul className='nav-list'>
           <li className='nav-item'>
-            <NavLink to='home'>Home</NavLink>
+            <NavLink to='/home'>Home</NavLink>
           </li>
           <li className='nav-item'>
-            <NavLink to='main'>Main</NavLink>
+            <NavLink to='/main'>Main</NavLink>
           </li>
           <li className='nav-item nav-item__right'>
             <Box style={{ display: 'flex', alignItems: 'center' }}>
