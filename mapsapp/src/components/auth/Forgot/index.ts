@@ -1,3 +1,1 @@
-import Forgot from './Forgot';
-
-export default Forgot;
+export {default} from './Forgot';
