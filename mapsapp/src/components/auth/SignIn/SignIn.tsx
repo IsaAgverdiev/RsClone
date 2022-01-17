@@ -3,19 +3,28 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useDispatch } from 'react-redux';
+import * as UserActions from '../../../store/actions/userActions';
+
+interface AccountMenuProps {
+  login: typeof UserActions.loginAction;
+}
 
 const theme = createTheme();
 
-const SignIn = () => {
+const SignIn: React.FC<AccountMenuProps> = ({ login }) => {
   const [loginValue, setLoginValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLoginChange = (event: React.BaseSyntheticEvent) => {
     const newValue = event.target.value;
@@ -36,6 +45,12 @@ const SignIn = () => {
     });
   };
 
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    login();
+    navigate('/main');
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
@@ -53,7 +68,7 @@ const SignIn = () => {
           <Typography component='h1' variant='h5'>
             Sign in
           </Typography>
-          <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component='form' onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
             <TextField
               margin='normal'
               required
