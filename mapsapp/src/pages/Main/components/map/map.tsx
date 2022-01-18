@@ -2,10 +2,22 @@ import React, { useState, useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import './Map.scss'
+import { MapState } from "../../../../store/reducers/mapReducer";
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
 
-const Map = () => {
+interface MapboxMapProps {
+  initialOptions?: Omit<mapboxgl.MapboxOptions, "container">;
+  onCreated?(map: mapboxgl.Map): void;
+  onLoaded?(map: mapboxgl.Map): void;
+  onRemoved?(): void;
+}
+const Map = ({
+  initialOptions = {},
+  onCreated,
+  onLoaded,
+  onRemoved,
+}: MapboxMapProps) => {
   const [map, setMap] = useState<mapboxgl.Map>();
   const mapNode = useRef(null);
   const [lng, setLng] = useState(37.60);
@@ -20,9 +32,13 @@ const Map = () => {
       style: "mapbox://styles/mapbox/streets-v11",
       center: [lng, lat],
       zoom: zoom,
+      ...initialOptions
     });
 
     setMap(mapboxMap);
+    if (onCreated) onCreated(mapboxMap);
+    if (onLoaded) mapboxMap.once("load", () => onLoaded(mapboxMap));
+
 
     if (mapboxMap) {
       mapboxMap.on('move', () => {
@@ -30,6 +46,7 @@ const Map = () => {
         setLat(+(mapboxMap.getCenter().lat.toFixed(4)));
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       })
+
     }
 
     const marker1 = new mapboxgl.Marker()
@@ -42,6 +59,8 @@ const Map = () => {
 
     return () => {
       mapboxMap.remove();
+      setMap(undefined);
+      if (onRemoved) onRemoved();
     };
 
   }, []);
