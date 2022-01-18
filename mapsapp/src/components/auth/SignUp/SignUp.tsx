@@ -43,7 +43,6 @@ const SignUp = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // eslint-disable-next-line no-console
     console.log({
       firstName: firstNameValue,
       lastName: lastNameValue,

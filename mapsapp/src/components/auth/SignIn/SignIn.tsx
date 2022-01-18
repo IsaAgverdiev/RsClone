@@ -10,7 +10,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
 import * as UserActions from '../../../store/actions/userActions';
 
 interface AccountMenuProps {
@@ -24,7 +23,6 @@ const SignIn: React.FC<AccountMenuProps> = ({ login }) => {
   const [passwordValue, setPasswordValue] = useState('');
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleLoginChange = (event: React.BaseSyntheticEvent) => {
     const newValue = event.target.value;
