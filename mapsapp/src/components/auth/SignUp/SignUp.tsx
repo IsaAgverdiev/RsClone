@@ -5,21 +5,29 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as UserActions from '../../../store/actions/userActions';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+
+interface AccountMenuProps {
+  login: typeof UserActions.loginAction;
+}
 
 const theme = createTheme();
 
-const SignUp = () => {
+const SignUp: React.FC<AccountMenuProps> = ({ login }) => {
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');
-  const [loginValue, setLoginValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
+
+  const navigate = useNavigate();
 
   const handleFirstNameChange = (event: React.BaseSyntheticEvent) => {
     const newValue = event.target.value;
@@ -33,7 +41,7 @@ const SignUp = () => {
 
   const handleLoginChange = (event: React.BaseSyntheticEvent) => {
     const newValue = event.target.value;
-    setLoginValue(newValue);
+    setEmailValue(newValue);
   };
 
   const handlePasswordChange = (event: React.BaseSyntheticEvent) => {
@@ -41,14 +49,15 @@ const SignUp = () => {
     setPasswordValue(newValue);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log({
-      firstName: firstNameValue,
-      lastName: lastNameValue,
-      login: loginValue,
-      password: passwordValue,
-    });
+  const handleRegister = (email: string, password: string) => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        console.log(user);
+        login();
+        navigate('/main');
+      })
+      .catch(console.error);
   };
 
   return (
@@ -68,7 +77,7 @@ const SignUp = () => {
           <Typography component='h1' variant='h5'>
             Sign up
           </Typography>
-          <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component='form' noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -97,14 +106,14 @@ const SignUp = () => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  id='login'
                   required
-                  value={loginValue}
+                  value={emailValue}
                   onChange={handleLoginChange}
                   fullWidth
-                  label='login'
-                  name='login'
-                  autoComplete='login'
+                  id='email'
+                  label='email'
+                  name='email'
+                  autoComplete='email'
                 />
               </Grid>
               <Grid item xs={12}>
@@ -127,7 +136,12 @@ const SignUp = () => {
                 />
               </Grid>
             </Grid>
-            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+            <Button
+              type='button'
+              onClick={() => handleRegister(emailValue, passwordValue)}
+              fullWidth
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
             <Grid container justifyContent='flex-end'>

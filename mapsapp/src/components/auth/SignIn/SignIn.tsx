@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as UserActions from '../../../store/actions/userActions';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 interface AccountMenuProps {
   login: typeof UserActions.loginAction;
@@ -19,14 +20,16 @@ interface AccountMenuProps {
 const theme = createTheme();
 
 const SignIn: React.FC<AccountMenuProps> = ({ login }) => {
-  const [loginValue, setLoginValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const navigate = useNavigate();
 
-  const handleLoginChange = (event: React.BaseSyntheticEvent) => {
+  const handleEmailChange = (event: React.BaseSyntheticEvent) => {
     const newValue = event.target.value;
-    setLoginValue(newValue);
+    setEmailValue(newValue);
   };
 
   const handlePasswordChange = (event: React.BaseSyntheticEvent) => {
@@ -34,19 +37,15 @@ const SignIn: React.FC<AccountMenuProps> = ({ login }) => {
     setPasswordValue(newValue);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log({
-      email: loginValue,
-      password: passwordValue,
-    });
-  };
-
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    login();
-    navigate('/main');
+  const handleLogin = (email: string, password: string) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        console.log(user);
+        login();
+        navigate('/main');
+      })
+      .catch(console.error);
   };
 
   return (
@@ -66,17 +65,17 @@ const SignIn: React.FC<AccountMenuProps> = ({ login }) => {
           <Typography component='h1' variant='h5'>
             Sign in
           </Typography>
-          <Box component='form' onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
+          <Box component='form' noValidate sx={{ mt: 1 }}>
             <TextField
               margin='normal'
               required
               fullWidth
-              value={loginValue}
-              onChange={handleLoginChange}
-              id='login'
-              label='login'
-              name='login'
-              autoComplete='login'
+              value={emailValue}
+              onChange={handleEmailChange}
+              id='email'
+              label='email'
+              name='email'
+              autoComplete='email'
               autoFocus
             />
             <TextField
@@ -91,7 +90,12 @@ const SignIn: React.FC<AccountMenuProps> = ({ login }) => {
               id='password'
               autoComplete='current-password'
             />
-            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+            <Button
+              type='button'
+              onClick={() => handleLogin(emailValue, passwordValue)}
+              fullWidth
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
             <Grid container>
