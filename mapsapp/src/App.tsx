@@ -5,8 +5,6 @@ import AppRouter from './components/AppRouter';
 import store from './store/store';
 import './styles/App.scss';
 import { db, getFirebaseFolder } from './firebase';
-import { getDocs, collection, Firestore } from 'firebase/firestore/lite';
-
 
 async function showUsers() {
   const usersList = await getFirebaseFolder(db, 'users');
