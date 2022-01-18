@@ -20,6 +20,7 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
   return authorized ? (
     <Routes>
       <Route path='/home' element={<Home />} />
+<<<<<<< HEAD
       <Route path='main' element={<Main />} >
         <Route index element={<Map />}/>
         <Route path="Feature1" element={<Feature1 />} />
@@ -29,23 +30,23 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
       <Route path='/main/profile' element={<Profile />} />
       <Route path='/main/settings' element={<Settings />} />
       <Route path='/sign_up' element={<SignUp />} />
+=======
+      <Route path='/main' element={<PersistentDrawerLeft />}></Route>
+>>>>>>> 522952f6ccf79a3f980e3084a7fa6f062f6292e1
 
-      <Route
-        path="*"
-        element={<Navigate to="/main" />}
-      />
+      <Route path='/sign_up' element={<SignUp />} />
+      <Route path='main/Feature1' element={<Feature1 />} />
+      <Route path='main/Feature2' element={<Feature2 />} />
+      <Route path='main/Feature3' element={<Feature3 />} />
+      <Route path='*' element={<Navigate to='/main' />} />
     </Routes>
-
   ) : (
     <Routes>
       <Route path='/home' element={<Home />} />
       <Route path='/sign_up' element={<SignUp />} />
       <Route path='/forgot' element={<Forgot />} />
       <Route path='/sign_in' element={<SignIn />} />
-      <Route
-        path="*"
-        element={<Navigate to="/sign_in" />}
-      />
+      <Route path='*' element={<Navigate to='/sign_in' />} />
     </Routes>
   );
 };
