@@ -4,6 +4,13 @@ import { Provider } from 'react-redux';
 import AppRouter from './components/AppRouter';
 import store from './store/store';
 import './styles/App.scss';
+import { db, getFirebaseFolder } from './firebase';
+
+async function showUsers() {
+  const usersList = await getFirebaseFolder(db, 'users');
+  console.log(usersList);
+}
+showUsers();
 
 const App = () => {
   return (

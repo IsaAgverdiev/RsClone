@@ -6,7 +6,7 @@ import './Map.scss'
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
 
 
-const MapboxMap = () => {
+const Map = () => {
 
   const [map, setMap] = useState<mapboxgl.Map>();
   const mapNode = useRef(null);
@@ -38,5 +38,6 @@ const MapboxMap = () => {
   )
 }
 
-export default MapboxMap
+export default Map;
+
 
