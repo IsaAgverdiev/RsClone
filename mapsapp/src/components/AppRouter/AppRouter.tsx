@@ -20,14 +20,14 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
   return authorized ? (
     <Routes>
       <Route path='/home' element={<Home />} />
-      <Route path='/main/profile' element={<Profile />} />
-      <Route path='/main/settings' element={<Settings />} />
       <Route path='main' element={<Main />} >
         <Route index element={<Map />}/>
         <Route path="Feature1" element={<Feature1 />} />
         <Route path="Feature2" element={<Feature2 />} />
         <Route path="Feature3" element={<Feature3 />} />
       </Route>
+      <Route path='/main/profile' element={<Profile />} />
+      <Route path='/main/settings' element={<Settings />} />
       <Route path='/sign_up' element={<SignUp />} />
 
       <Route
