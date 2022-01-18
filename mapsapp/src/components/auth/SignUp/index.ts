@@ -1,3 +1,9 @@
+import { connect } from 'react-redux';
 import SignUp from './SignUp';
+import * as UserActions from '../../../store/actions/userActions';
 
-export default SignUp;
+const mapDispatchToProps = {
+  login: UserActions.loginAction,
+};
+
+export default connect(null, mapDispatchToProps)(SignUp);
