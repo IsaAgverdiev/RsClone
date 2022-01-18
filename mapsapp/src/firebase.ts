@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore/lite';
+import { getDocs, collection, Firestore, getFirestore } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCD99UpQJevso1Zx51dshiXOb1vZP2J29Y',
@@ -14,7 +14,11 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
-// const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
+export const auth = getAuth(firebaseApp);
+export const db = getFirestore(firebaseApp);
 
-export default db;
+export async function getFirebaseFolder(db: Firestore, folderName: string) {
+  const dataSnapshot = await getDocs(collection(db, folderName));
+  const dataList = dataSnapshot.docs.map(doc => doc.data());
+  return dataList;
+}
