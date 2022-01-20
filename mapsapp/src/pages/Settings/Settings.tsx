@@ -1,22 +1,38 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings2 from '@mui/icons-material/Settings';
 
+interface SettingsProps {
+  authorized: boolean;
+  name: string | null;
+  lastName: string | null;
+}
+
 const theme = createTheme();
-const Settings = () => {
+
+const Settings: React.FC<SettingsProps> = ({ authorized, name, lastName}) => {
+  const [firstNameValue, setFirstNameValue] = useState(name);
+  const [lastNameValue, setLastNameValue] = useState(lastName);
+ 
+
+  const handleFirstNameChange = (event: React.BaseSyntheticEvent) => {
+    const newValue = event.target.value;
+    setFirstNameValue(newValue);
+  };
+
+  const handleLastNameChange = (event: React.BaseSyntheticEvent) => {
+    const newValue = event.target.value;
+    setLastNameValue(newValue);
+  };
+
   return (
     <ThemeProvider theme={theme}>
     <Container component='main' maxWidth='xs'>
@@ -42,6 +58,8 @@ const Settings = () => {
                   name='firstName'
                   required
                   fullWidth
+                  value={firstNameValue}
+                  onChange={handleFirstNameChange}
                   id='firstName'
                   label='First Name'
                   autoFocus
@@ -54,6 +72,8 @@ const Settings = () => {
                   id='lastName'
                   label='Last Name'
                   name='lastName'
+                  value={lastNameValue}
+                  onChange={handleLastNameChange}
                   autoComplete='family-name'
                 />
               </Grid>

@@ -5,6 +5,7 @@ export interface UserState {
   isAuth: boolean;
   personalInfo: {
     name: string;
+    lastName: string;
   };
 }
 
@@ -12,6 +13,7 @@ const initialState: UserState = {
   isAuth: true,
   personalInfo: {
     name: 'Marina',
+    lastName: 'Lastname'
   },
 };
 
@@ -22,7 +24,7 @@ const userReducer = createReducer(initialState, builder => {
     })
     .addCase(UserActions.loginAction, (state, action) => {
       state.isAuth = action.payload;
-    });
+    })
 });
 
 export default userReducer;

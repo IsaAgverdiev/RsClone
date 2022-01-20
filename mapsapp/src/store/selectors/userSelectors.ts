@@ -16,3 +16,6 @@ export const personalInfoSelector = createSelector(userSelector, userState =>
 export const nameSelector = createSelector(personalInfoSelector, personalInfo =>
   get(personalInfo, 'name', null)
 );
+export const lastNameSelector = createSelector(personalInfoSelector, personalInfo =>
+  get(personalInfo, 'lastName', null)
+);
