@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import './Map.scss'
-import { MapState } from "../../../../store/reducers/mapReducer";
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
 

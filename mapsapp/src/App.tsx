@@ -12,6 +12,13 @@ async function showUsers() {
 }
 showUsers();
 
+async function showPoints() {
+  const pointsList = await getFirebaseFolder(db, 'points')
+  console.log('%cApp.tsx line:17 pointsList', 'color: #26bfa5;', pointsList);
+}
+
+showPoints();
+
 const App = () => {
   return (
     <Provider store={store}>
