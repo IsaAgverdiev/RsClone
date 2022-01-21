@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { FirstInputPolyfillEntry } from 'web-vitals';
 import * as PointsActions from '../actions/pointsActions';
 
 export interface PointsState {
@@ -8,7 +9,6 @@ export interface PointsState {
   }
 }
 
-
 interface IPoint {
   lng: number,
   let: number,
@@ -16,13 +16,16 @@ interface IPoint {
 }
 
 const initialState: PointsState = {
-  points: {}
+  points: {
+    single: [],
+    multiple: []
+  }
 };
 
 const pointsReducer = createReducer(initialState, builder => {
   builder
     .addCase(PointsActions.addSinglePointsAction, (state, action) => {
-     state.points = action.payload
+      state.points.single = action.payload
     })
 })
 

@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as UserActions from '../../../store/actions/userActions';
 import * as PointsActions from '../../../store/actions/pointsActions';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { showPoints } from '../../../firebase';
 
 
 interface AccountMenuProps {
@@ -46,7 +47,13 @@ const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints }) => {
       .then(({ user }) => {
         console.log(user);
         login();
-        addSinglePoints();
+
+        let data = showPoints()
+        data.then((points) => {
+          const singlePoints = points.filter((point) => point.type === "single")
+          addSinglePoints(singlePoints)
+        })
+
         navigate('/main');
       })
       .catch(console.error);
