@@ -9,16 +9,17 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings2 from '@mui/icons-material/Settings';
+import * as UserActions from '../../store/actions/userActions';
 
 interface SettingsProps {
-  authorized: boolean;
-  name: string | null;
-  lastName: string | null;
+  name: string;
+  lastName: string;
+  updateUserData: typeof UserActions.updateUserDataAction;
 }
 
 const theme = createTheme();
 
-const Settings: React.FC<SettingsProps> = ({ authorized, name, lastName}) => {
+const Settings: React.FC<SettingsProps> = ({ name, lastName, updateUserData }) => {
   const [firstNameValue, setFirstNameValue] = useState(name);
   const [lastNameValue, setLastNameValue] = useState(lastName);
  
@@ -32,7 +33,10 @@ const Settings: React.FC<SettingsProps> = ({ authorized, name, lastName}) => {
     const newValue = event.target.value;
     setLastNameValue(newValue);
   };
-
+  const handleUpdateUserData = () => {
+     updateUserData(firstNameValue, lastNameValue);
+     
+  };
   return (
     <ThemeProvider theme={theme}>
     <Container component='main' maxWidth='xs'>
@@ -78,7 +82,7 @@ const Settings: React.FC<SettingsProps> = ({ authorized, name, lastName}) => {
                 />
               </Grid>
                          </Grid>
-                  <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+                  <Button type='submit' onClick={handleUpdateUserData} fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
               Submit
             </Button>
         </Box>

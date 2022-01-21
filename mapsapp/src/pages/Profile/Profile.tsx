@@ -9,14 +9,13 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 interface ProfileProps {
-  authorized: boolean;
-  name: string | null;
-  lastName: string | null;
+  name: string;
+  lastName: string;
 }
 
 const theme = createTheme();
 
-const Profile:React.FC<ProfileProps> = ({authorized, name, lastName}) => {
+const Profile:React.FC<ProfileProps> = ({name, lastName}) => {
   return (
     <ThemeProvider theme={theme}>
     <Container component='main' maxWidth='xs'>
