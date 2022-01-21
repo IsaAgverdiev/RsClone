@@ -11,15 +11,19 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as UserActions from '../../../store/actions/userActions';
+import * as PointsActions from '../../../store/actions/pointsActions';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { showPoints } from '../../../firebase';
+
 
 interface AccountMenuProps {
   login: typeof UserActions.loginAction;
+  addSinglePoints: typeof PointsActions.addSinglePointsAction;
 }
 
 const theme = createTheme();
 
-const SignIn: React.FC<AccountMenuProps> = ({ login }) => {
+const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints }) => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -43,6 +47,13 @@ const SignIn: React.FC<AccountMenuProps> = ({ login }) => {
       .then(({ user }) => {
         console.log(user);
         login();
+
+        let data = showPoints()
+        data.then((points) => {
+          const singlePoints = points.filter((point) => point.type === "single")
+          addSinglePoints(singlePoints)
+        })
+
         navigate('/main');
       })
       .catch(console.error);
