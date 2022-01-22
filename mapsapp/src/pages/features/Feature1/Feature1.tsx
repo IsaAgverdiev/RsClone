@@ -7,7 +7,6 @@ const Feature1 = () => {
   const [loading, setLoading] = useState(true);
   const handleMapLoading = () => setLoading(false);
 
-  console.log('%cFeature1.tsx line:10 loading', 'color: #007acc;', loading);
   return (
     <div className="app-container">
       <h1>Feature1</h1>
