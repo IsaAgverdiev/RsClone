@@ -9,6 +9,9 @@ export const loginAction = createAction(UserActionTypes.LOGIN, () => ({
   payload: true,
 }));
 export const updateUserDataAction = createAction(UserActionTypes.UPDATE_USER_DATA, (name, lastName) => ({
-  payload: name, lastName,
+  payload: {
+    name,
+    lastName
+  }
 }));
 

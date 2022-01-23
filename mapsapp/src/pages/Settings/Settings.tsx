@@ -35,7 +35,6 @@ const Settings: React.FC<SettingsProps> = ({ name, lastName, updateUserData }) =
   };
   const handleUpdateUserData = () => {
      updateUserData(firstNameValue, lastNameValue);
-     
   };
   return (
     <ThemeProvider theme={theme}>

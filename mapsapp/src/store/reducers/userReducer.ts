@@ -26,8 +26,8 @@ const userReducer = createReducer(initialState, builder => {
       state.isAuth = action.payload;
     })
     .addCase(UserActions.updateUserDataAction, (state, action) => {
-      state.personalInfo.name = action.payload;
-      state.personalInfo.lastName = action.payload;
+      state.personalInfo.name = action.payload.name;
+      state.personalInfo.lastName = action.payload.lastName;
     })
 });
 
