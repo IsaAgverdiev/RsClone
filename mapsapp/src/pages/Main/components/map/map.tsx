@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import './Map.scss'
+import { Button } from "@mui/material";
+import MapModal from "../../../../components/MapModal/MapModal";
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
 
@@ -64,12 +66,18 @@ const Map = ({
 
   }, []);
 
+  const openModal = () => {
+    console.log("I am your click")
+  }
+
   return (
     <>
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div ref={mapNode} className="map-container" />
+      <div ref={mapNode} className="map-container"  >
+        <MapModal />
+      </div>
     </>
   )
 }
