@@ -8,9 +8,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+interface ProfileProps {
+  name: string;
+  lastName: string;
+}
+
 const theme = createTheme();
 
-const Profile = () => {
+const Profile:React.FC<ProfileProps> = ({name, lastName}) => {
   return (
     <ThemeProvider theme={theme}>
     <Container component='main' maxWidth='xs'>
@@ -36,7 +41,7 @@ const Profile = () => {
               alignItems: 'start',
               border: 1,
         }}>
-          First Name</Box>
+          {name}</Box>
               </Grid>
               <Grid item xs={12}>
               <Box  sx={{
@@ -46,7 +51,7 @@ const Profile = () => {
               alignItems: 'start',
               border: 1,
         }}>
-          Last Name</Box>
+          {lastName}</Box>
               </Grid>
               </Grid>
              </Box>
