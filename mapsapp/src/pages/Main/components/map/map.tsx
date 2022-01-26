@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import './Map.scss'
-import { Button } from "@mui/material";
-import MapModal from "../../../../components/MapModal/MapModal";
+import MapModal from "../../../../components/MapModal";
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
 
@@ -24,6 +23,15 @@ const Map = ({
   const [lng, setLng] = useState(37.60);
   const [lat, setLat] = useState(55.73);
   const [zoom, setZoom] = useState(10);
+  const [openModal, setOpenModal] = useState(false)
+
+  const handleClick = (event: React.MouseEvent) => {
+    if (event.button === 2) {
+      setOpenModal(true);
+      console.log('%cmap.tsx line:33 openModal', 'color: #007acc;', openModal);
+      console.log('Right click');
+    }
+  }
 
   useEffect(() => {
     const node = mapNode.current;
@@ -66,17 +74,16 @@ const Map = ({
 
   }, []);
 
-  const openModal = () => {
-    console.log("I am your click")
-  }
+  const [modal, setModal] = useState(false);
+  const Toggle = () => setModal(!modal);
 
   return (
     <>
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div ref={mapNode} className="map-container"  >
-        <MapModal />
+      <div ref={mapNode} className="map-container" onMouseDown={handleClick} >
+        <MapModal/> 
       </div>
     </>
   )

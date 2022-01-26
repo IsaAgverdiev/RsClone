@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from "react";
+import ReactDom from "react-dom";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import './mapModal.scss'
 import ModalInputs from './components/ModalInputs';
@@ -18,13 +18,15 @@ const style = {
   p: 4,
 };
 
-export default function MapModal() {
+const modalRoot = document.querySelector("#modal-root") as HTMLElement;
+
+const MapModal = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  return (
-    <div className="modal">
+  return ReactDom.createPortal(
+    <div className="modal" >
       <Button onClick={handleOpen}>Add point</Button>
       <Modal
         open={open}
@@ -37,5 +39,9 @@ export default function MapModal() {
         </Box>
       </Modal>
     </div>
+    ,
+    modalRoot
   );
 }
+
+export default MapModal;
