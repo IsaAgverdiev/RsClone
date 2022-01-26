@@ -76,7 +76,7 @@ const Map = ({
       if (onRemoved) onRemoved();
     };
 
-    
+  }, []);
 
   return (
     <>
