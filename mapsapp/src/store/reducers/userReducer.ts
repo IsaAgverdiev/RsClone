@@ -12,8 +12,8 @@ export interface UserState {
 const initialState: UserState = {
   isAuth: true,
   personalInfo: {
-    name: 'Marina',
-    lastName: 'Lastname'
+    name: '',
+    lastName: ''
   },
 };
 

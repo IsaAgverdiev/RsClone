@@ -14,16 +14,19 @@ import * as UserActions from '../../../store/actions/userActions';
 import * as PointsActions from '../../../store/actions/pointsActions';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { showPoints } from '../../../firebase';
+import { showUserData } from '../../../firebase';
 
 
 interface AccountMenuProps {
   login: typeof UserActions.loginAction;
   addSinglePoints: typeof PointsActions.addSinglePointsAction;
+  name: string;
+  lastName: string;
 }
 
 const theme = createTheme();
 
-const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints }) => {
+const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints, name, lastName }) => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -47,13 +50,14 @@ const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints }) => {
       .then(({ user }) => {
         console.log(user);
         login();
-
+        const uid = user.uid
+        showUserData(uid);
         let data = showPoints()
         data.then((points) => {
           const singlePoints = points.filter((point) => point.type === "single")
           addSinglePoints(singlePoints)
         })
-
+        
         navigate('/main');
       })
       .catch(console.error);
