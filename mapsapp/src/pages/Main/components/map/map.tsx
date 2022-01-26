@@ -26,10 +26,18 @@ const Map = ({
   const [lat, setLat] = useState(55.73);
   const [zoom, setZoom] = useState(10);
   const [openModal, setOpenModal] = useState(false)
+  const [modalXPosition, setXPosition] = useState(0)
+  const [modalYPosition, setYPosition] = useState(0)
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.button === 2) {
+      // console.log('%cmap.tsx line:32 event.clientX', 'color: #007acc;', event.clientX);
+      // console.log('%cmap.tsx line:32 event.clientY', 'color: #007acc;', event.clientY);
       setOpen(true);
+      setXPosition(event.clientX);
+      setYPosition(event.clientY);
+      // console.log('%cmap.tsx line:39 modalXPosition', 'color: #007acc;', modalXPosition);
+      // console.log('%cmap.tsx line:39 modalYPosition', 'color: #007acc;', modalYPosition);
     }
   }
 
@@ -55,7 +63,6 @@ const Map = ({
         setLat(+(mapboxMap.getCenter().lat.toFixed(4)));
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       })
-
     }
 
     const marker1 = new mapboxgl.Marker()
@@ -86,7 +93,7 @@ const Map = ({
       <div ref={mapNode} className="map-container" onMouseDown={handleClick}  onContextMenu={(e)=> e.preventDefault()} >
         <div className="modal">
           <Button onClick={handleOpen}>Add point</Button>
-          <MapModal open={open} onClose={handleClose} />
+          <MapModal open={open} onClose={handleClose} YPosition={modalYPosition} XPosition={modalXPosition}/>
         </div>
       </div>
     </>

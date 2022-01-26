@@ -7,7 +7,7 @@ import ModalInputs from './components/ModalInputs';
 
 const style = {
   position: 'absolute' as 'absolute',
-  top: '50%',
+  // top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
@@ -20,19 +20,38 @@ const style = {
 interface ModalProps {
   open: boolean;
   onClose: () => void;
+  YPosition: number;
+  XPosition: number;
+}
+
+interface modalPosition {
+  top: number,
+  left: number
 }
 
 const modalRoot = document.querySelector("#modal-root") as HTMLElement;
 
-const MapModal = ({open, onClose}:  ModalProps) => {
+const MapModal = ({ open, onClose, YPosition, XPosition }: ModalProps) => {
+
+  let position: modalPosition = {
+    top: YPosition + 140,
+    left: XPosition + 200
+  }
+
+  if (YPosition > (window.innerHeight - 300)) {
+    position.top = YPosition - 100;
+  }
+  if (XPosition > window.innerWidth - style.width) {
+    position.left = XPosition - 200
+  }
 
   return ReactDom.createPortal(
-    <div className="modal" >
+    <div className="modal">
       <Modal
         open={open}
         onClose={onClose}
       >
-        <Box sx={style}>
+        <Box sx={style} style={position}>
           <ModalInputs />
         </Box>
       </Modal>
