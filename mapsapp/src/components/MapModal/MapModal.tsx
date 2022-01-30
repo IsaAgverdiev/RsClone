@@ -22,6 +22,8 @@ interface ModalProps {
   onClose: () => void;
   YPosition: number;
   XPosition: number;
+  markerLat: number;
+  markerLng: number;
 }
 
 interface modalPosition {
@@ -31,7 +33,7 @@ interface modalPosition {
 
 const modalRoot = document.querySelector("#modal-root") as HTMLElement;
 
-const MapModal = ({ open, onClose, YPosition, XPosition }: ModalProps) => {
+const MapModal = ({ open, onClose, YPosition, XPosition, markerLat, markerLng }: ModalProps) => {
 
   let position: modalPosition = {
     top: YPosition + 140,
@@ -53,7 +55,7 @@ const MapModal = ({ open, onClose, YPosition, XPosition }: ModalProps) => {
         onClose={onClose}
       >
         <Box sx={style} style={position}>
-          <ModalInputs />
+          <ModalInputs lat={markerLat} lng={markerLng} />
         </Box>
       </Modal>
     </div>

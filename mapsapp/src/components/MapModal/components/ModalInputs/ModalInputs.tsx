@@ -4,11 +4,12 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-const ModalInputs = () => {
-  const [lng, setLng] = useState('');
-  const [ltd, setLtd] = useState('');
-  const handleLngChange = (event: React.ChangeEvent<HTMLInputElement>) => { setLng(event.target.value); };
-  const handleLtdChange = (event: React.ChangeEvent<HTMLInputElement>) => { setLtd(event.target.value); };
+interface ModalInputsProps {
+  lat: number;
+  lng: number
+}
+
+const ModalInputs = ({lat, lng}: ModalInputsProps) => {
 
   return (
     <Box
@@ -25,14 +26,12 @@ const ModalInputs = () => {
           id="outlined-longitude"
           label="Longitude"
           value={lng}
-          onChange={handleLngChange}
         /> 
         <TextField 
           required 
           id="outlined-latitude"
           label="Latitude"
-          value={ltd}
-          onChange={handleLtdChange}
+          value={lat}
         />
         <TextField
         required 

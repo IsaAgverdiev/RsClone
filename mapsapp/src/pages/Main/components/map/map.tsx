@@ -24,15 +24,18 @@ const Map = ({
   const mapNode = useRef(null);
   const [lng, setLng] = useState(37.60);
   const [lat, setLat] = useState(55.73);
+  const [markerLng, setMarkerLng] = useState(0);
+  const [markerLat, setMarkerLat] = useState(0);
   const [zoom, setZoom] = useState(10);
   const [modalXPosition, setXPosition] = useState(0)
   const [modalYPosition, setYPosition] = useState(0)
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const handleClick = (event: React.MouseEvent) => {
     if (event.button === 2) {
-       setOpen(true);
+      setOpen(true);
       setXPosition(event.clientX);
       setYPosition(event.clientY);
     }
@@ -61,24 +64,20 @@ const Map = ({
         setLat(+(mapboxMap.getCenter().lat.toFixed(4)));
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       });
-      
+
       const addMarker = (event: MapMouseEvent) => {
-        const marker = new mapboxgl.Marker()
+        setOpen(true);
         let coordinates = event.lngLat;
-        console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
+        setMarkerLat(coordinates.lat);
+        setMarkerLng(coordinates.lng);
+        console.log('Lng:', markerLng, 'Lat:', coordinates.lat);
+        const marker = new mapboxgl.Marker()
         marker.setLngLat(coordinates).addTo(mapboxMap);
-    }
+
+      }
+
       mapboxMap.on('click', addMarker)
-      
     }
-
-    const marker1 = new mapboxgl.Marker()
-      .setLngLat([37.62, 55.75])
-      .addTo(mapboxMap);
-
-    const marker2 = new mapboxgl.Marker({ color: 'black', rotation: 45, draggable: true })
-      .setLngLat([37.72, 55.75])
-      .addTo(mapboxMap);
 
     return () => {
       mapboxMap.remove();
@@ -93,10 +92,10 @@ const Map = ({
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div ref={mapNode} className="map-container" onMouseDown={handleClick}  onContextMenu={(e)=> e.preventDefault()} >
+      <div ref={mapNode} className="map-container" onMouseDown={handleClick} onContextMenu={(e) => e.preventDefault()} >
         <div className="modal">
           <Button onClick={handleOpen}>Add point</Button>
-          <MapModal open={open} onClose={handleClose} YPosition={modalYPosition} XPosition={modalXPosition}/>
+          <MapModal open={open} onClose={handleClose} YPosition={modalYPosition} XPosition={modalXPosition} markerLng={markerLng} markerLat={markerLat} />
         </div>
       </div>
     </>
