@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import mapboxgl from "mapbox-gl";
+import mapboxgl, { MapMouseEvent } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import './Map.scss'
 import MapModal from "../../../../components/MapModal";
@@ -38,6 +38,7 @@ const Map = ({
     }
   }
 
+
   useEffect(() => {
     const node = mapNode.current;
     if (typeof window === "undefined" || node === null) return;
@@ -59,7 +60,16 @@ const Map = ({
         setLng(+(mapboxMap.getCenter().lng.toFixed(4)));
         setLat(+(mapboxMap.getCenter().lat.toFixed(4)));
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
-      })
+      });
+      
+      const addMarker = (event: MapMouseEvent) => {
+        const marker = new mapboxgl.Marker()
+        let coordinates = event.lngLat;
+        console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
+        marker.setLngLat(coordinates).addTo(mapboxMap);
+    }
+      mapboxMap.on('click', addMarker)
+      
     }
 
     const marker1 = new mapboxgl.Marker()

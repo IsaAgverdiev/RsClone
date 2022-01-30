@@ -44,6 +44,7 @@ const MapModal = ({ open, onClose, YPosition, XPosition }: ModalProps) => {
   if (XPosition > window.innerWidth - style.width) {
     position.left = XPosition - 200
   }
+  
 
   return ReactDom.createPortal(
     <div className="modal">
