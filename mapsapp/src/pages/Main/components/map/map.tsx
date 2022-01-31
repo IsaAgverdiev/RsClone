@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import mapboxgl, { MapMouseEvent } from "mapbox-gl";
+import mapboxgl, { LngLat, MapMouseEvent } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import './Map.scss'
 import MapModal from "../../../../components/MapModal";
@@ -14,6 +14,7 @@ interface MapboxMapProps {
   onLoaded?(map: mapboxgl.Map): void;
   onRemoved?(): void;
 }
+
 const Map = ({
   initialOptions = {},
   onCreated,
@@ -65,18 +66,33 @@ const Map = ({
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       });
 
+
+      const addPopup = (lngLat: LngLat) => {
+        const popup = new mapboxgl.Popup({ closeOnClick: false })
+          .setLngLat(lngLat)
+          .setHTML("Hi I am popup");
+
+        popup.addTo(mapboxMap)
+      }
+
       const addMarker = (event: MapMouseEvent) => {
-        setOpen(true);
+        // setOpen(true);
         let coordinates = event.lngLat;
+
         setMarkerLat(coordinates.lat);
         setMarkerLng(coordinates.lng);
-        console.log('Lng:', markerLng, 'Lat:', coordinates.lat);
-        const marker = new mapboxgl.Marker()
-        marker.setLngLat(coordinates).addTo(mapboxMap);
+
+        addPopup(event.lngLat)
+
+        const marker = new mapboxgl.Marker({ draggable: true })
+        marker.setLngLat(coordinates);
+
+        marker.addTo(mapboxMap);
 
       }
 
       mapboxMap.on('click', addMarker)
+
     }
 
     return () => {
