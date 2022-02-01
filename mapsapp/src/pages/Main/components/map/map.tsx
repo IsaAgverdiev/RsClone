@@ -60,7 +60,7 @@ const Map = ({
           popupNode
         )
 
-        const popup = new mapboxgl.Popup({ closeOnClick: true })
+        const popup = new mapboxgl.Popup({ closeOnClick: true, focusAfterOpen: true })
           .setLngLat(coordinates)
           .setDOMContent(popupNode);
         popup.addTo(mapboxMap)

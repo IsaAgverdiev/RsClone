@@ -8,7 +8,6 @@ interface ModalInputsProps {
 }
 
 const ModalInputs = ({lat, lng}: ModalInputsProps) => {
-  console.log('%cModalInputs.tsx line:13 lat, lng', 'color: #007acc;', lat, lng);
 
   return (
     <Box
@@ -20,6 +19,13 @@ const ModalInputs = ({lat, lng}: ModalInputsProps) => {
       autoComplete="off"
     >
       <div>
+      <TextField
+        required 
+          id="outlined-type"
+          label="Type"
+          type="text"
+          autoComplete="Single"
+        />
         <TextField
           required
           id="outlined-longitude"
@@ -32,13 +38,7 @@ const ModalInputs = ({lat, lng}: ModalInputsProps) => {
           label="Latitude"
           value={lat.toFixed(4)}
         />
-        <TextField
-        required 
-          id="outlined-type"
-          label="Type"
-          type="text"
-          autoComplete="Single"
-        />
+       
       </div>
     </Box>
   );

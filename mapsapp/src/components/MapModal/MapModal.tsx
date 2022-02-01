@@ -1,5 +1,4 @@
 import React from "react";
-import Box from '@mui/material/Box';
 import './mapModal.scss'
 import ModalInputs from './components/ModalInputs';
 
@@ -8,15 +7,10 @@ interface ModalProps {
   markerLng: number;
 }
 
-const MapModal = ( { markerLat, markerLng }: ModalProps) => {
-  console.log('%cMapModal.tsx line:12 markerLng', 'color: #007acc;', markerLng);
+const MapModal = ({ markerLat, markerLng }: ModalProps) => {
 
   return (
-    <div className="modal">
-      <Box >
-        <ModalInputs lat={markerLat} lng={markerLng} />
-      </Box>
-    </div>
+    <ModalInputs lat={markerLat} lng={markerLng} />
   );
 
 }
