@@ -4,7 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import './Map.scss'
 import MapModal from "../../../../components/MapModal";
 import "../../../../components/MapModal/mapModal.scss"
-import Button from '@mui/material/Button';
+import ReactDOM from "react-dom";
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
 
@@ -25,22 +25,7 @@ const Map = ({
   const mapNode = useRef(null);
   const [lng, setLng] = useState(37.60);
   const [lat, setLat] = useState(55.73);
-  const [markerLng, setMarkerLng] = useState(0);
-  const [markerLat, setMarkerLat] = useState(0);
   const [zoom, setZoom] = useState(10);
-  const [modalXPosition, setXPosition] = useState(0)
-  const [modalYPosition, setYPosition] = useState(0)
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const handleClick = (event: React.MouseEvent) => {
-    if (event.button === 2) {
-      setOpen(true);
-      setXPosition(event.clientX);
-      setYPosition(event.clientY);
-    }
-  }
 
 
   useEffect(() => {
@@ -66,33 +51,25 @@ const Map = ({
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       });
 
+      const addPopup = (event: MapMouseEvent) => {
+        const coordinates = event.lngLat;
+        const popupNode = document.createElement("div")
+        ReactDOM.render(
+          <MapModal markerLng={coordinates.lng} markerLat={coordinates.lat} />
+          ,
+          popupNode
+        )
 
-      const addPopup = (lngLat: LngLat) => {
-        const popup = new mapboxgl.Popup({ closeOnClick: false })
-          .setLngLat(lngLat)
-          .setHTML("Hi I am popup");
-
+        const popup = new mapboxgl.Popup({ closeOnClick: true })
+          .setLngLat(coordinates)
+          .setDOMContent(popupNode);
         popup.addTo(mapboxMap)
-      }
-
-      const addMarker = (event: MapMouseEvent) => {
-        // setOpen(true);
-        let coordinates = event.lngLat;
-
-        setMarkerLat(coordinates.lat);
-        setMarkerLng(coordinates.lng);
-
-        addPopup(event.lngLat)
 
         const marker = new mapboxgl.Marker({ draggable: true })
         marker.setLngLat(coordinates);
-
         marker.addTo(mapboxMap);
-
       }
-
-      mapboxMap.on('click', addMarker)
-
+      mapboxMap.on('click', addPopup)
     }
 
     return () => {
@@ -108,11 +85,7 @@ const Map = ({
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div ref={mapNode} className="map-container" onMouseDown={handleClick} onContextMenu={(e) => e.preventDefault()} >
-        <div className="modal">
-          <Button onClick={handleOpen}>Add point</Button>
-          <MapModal open={open} onClose={handleClose} YPosition={modalYPosition} XPosition={modalXPosition} markerLng={markerLng} markerLat={markerLat} />
-        </div>
+      <div ref={mapNode} className="map-container"  >
       </div>
     </>
   )

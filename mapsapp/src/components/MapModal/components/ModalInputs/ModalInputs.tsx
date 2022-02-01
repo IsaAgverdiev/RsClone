@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
-
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
@@ -10,6 +8,7 @@ interface ModalInputsProps {
 }
 
 const ModalInputs = ({lat, lng}: ModalInputsProps) => {
+  console.log('%cModalInputs.tsx line:13 lat, lng', 'color: #007acc;', lat, lng);
 
   return (
     <Box
@@ -25,13 +24,13 @@ const ModalInputs = ({lat, lng}: ModalInputsProps) => {
           required
           id="outlined-longitude"
           label="Longitude"
-          value={lng}
+          value={lng.toFixed(4)}
         /> 
         <TextField 
           required 
           id="outlined-latitude"
           label="Latitude"
-          value={lat}
+          value={lat.toFixed(4)}
         />
         <TextField
         required 
