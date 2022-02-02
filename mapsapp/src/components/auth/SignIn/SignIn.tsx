@@ -31,7 +31,7 @@ const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints, name, last
   const [passwordValue, setPasswordValue] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-
+ 
   const navigate = useNavigate();
 
   const handleEmailChange = (event: React.BaseSyntheticEvent) => {

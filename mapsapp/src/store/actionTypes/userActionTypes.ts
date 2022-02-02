@@ -1,3 +1,8 @@
 export const LOGOUT = 'LOGOUT';
 export const LOGIN = 'LOGIN';
-export const UPDATE_USER_DATA = 'UPDATE_USER_DATA';
+
+export const SIGN_UP = 'SIGN_UP';
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_ERROR = 'SIGN_UP_ERROR';
+
+

@@ -24,7 +24,7 @@ export async function getFirebaseFolder(db: Firestore, folderName: string) {
 }
 
 export async function showPoints() {
-  const pointsList = await getFirebaseFolder(db, 'points')
+  const pointsList = await getFirebaseFolder(db, 'points');
   console.log('%cApp.tsx line:17 pointsList', 'color: #26bfa5;', pointsList);
   return pointsList;
 }
