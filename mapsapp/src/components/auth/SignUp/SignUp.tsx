@@ -14,6 +14,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as UserActions from '../../../store/actions/userActions';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserRecord } from '../../../firebase'
+
 
 interface AccountMenuProps {
   signUp: typeof UserActions.SignUp;
@@ -49,9 +51,9 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
     const newValue = event.target.value;
     setPasswordValue(newValue);
   };
-
+ 
   const handleRegister = (email: string, password: string) => {
-    signUp(email, password, navigate);
+    signUp(email, password, navigate, firstNameValue, lastNameValue);
   };
   console.log(signUpError);
   return (
