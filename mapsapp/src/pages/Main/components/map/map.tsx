@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import mapboxgl from "mapbox-gl";
+import mapboxgl, { LngLat, MapMouseEvent } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import './Map.scss'
+import MapModal from "../../../../components/MapModal";
+import "../../../../components/MapModal/mapModal.scss"
+import ReactDOM from "react-dom";
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
 
@@ -11,6 +14,7 @@ interface MapboxMapProps {
   onLoaded?(map: mapboxgl.Map): void;
   onRemoved?(): void;
 }
+
 const Map = ({
   initialOptions = {},
   onCreated,
@@ -22,6 +26,7 @@ const Map = ({
   const [lng, setLng] = useState(37.60);
   const [lat, setLat] = useState(55.73);
   const [zoom, setZoom] = useState(10);
+
 
   useEffect(() => {
     const node = mapNode.current;
@@ -44,17 +49,28 @@ const Map = ({
         setLng(+(mapboxMap.getCenter().lng.toFixed(4)));
         setLat(+(mapboxMap.getCenter().lat.toFixed(4)));
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
-      })
+      });
 
+      const addPopup = (event: MapMouseEvent) => {
+        const coordinates = event.lngLat;
+        const popupNode = document.createElement("div")
+        ReactDOM.render(
+          <MapModal markerLng={coordinates.lng} markerLat={coordinates.lat} />
+          ,
+          popupNode
+        )
+
+        const popup = new mapboxgl.Popup({ closeOnClick: true, focusAfterOpen: true })
+          .setLngLat(coordinates)
+          .setDOMContent(popupNode);
+        popup.addTo(mapboxMap)
+
+        const marker = new mapboxgl.Marker({ draggable: true })
+        marker.setLngLat(coordinates);
+        marker.addTo(mapboxMap);
+      }
+      mapboxMap.on('click', addPopup)
     }
-
-    const marker1 = new mapboxgl.Marker()
-      .setLngLat([37.62, 55.75])
-      .addTo(mapboxMap);
-
-    const marker2 = new mapboxgl.Marker({ color: 'black', rotation: 45, draggable: true })
-      .setLngLat([37.72, 55.75])
-      .addTo(mapboxMap);
 
     return () => {
       mapboxMap.remove();
@@ -69,7 +85,8 @@ const Map = ({
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div ref={mapNode} className="map-container" />
+      <div ref={mapNode} className="map-container"  >
+      </div>
     </>
   )
 }
