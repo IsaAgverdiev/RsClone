@@ -8,6 +8,9 @@ export const isAuthSelector = createSelector(userSelector, userState =>
   get(userState, 'isAuth', false)
 );
 
+export const signUpErrorSelector = createSelector(userSelector, userState =>
+  get(userState, 'signUpError', undefined)
+);
 
 export const personalInfoSelector = createSelector(userSelector, userState =>
   get(userState, 'personalInfo', {})

@@ -16,12 +16,13 @@ import * as UserActions from '../../../store/actions/userActions';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 interface AccountMenuProps {
-  login: typeof UserActions.loginAction;
+  signUp: typeof UserActions.SignUp;
+  signUpError?: string;
 }
 
 const theme = createTheme();
 
-const SignUp: React.FC<AccountMenuProps> = ({ login }) => {
+const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
@@ -50,16 +51,9 @@ const SignUp: React.FC<AccountMenuProps> = ({ login }) => {
   };
 
   const handleRegister = (email: string, password: string) => {
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        console.log(user);
-        login();
-        navigate('/main');
-      })
-      .catch(console.error);
+    signUp(email, password, navigate);
   };
-
+  console.log(signUpError);
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
@@ -129,6 +123,7 @@ const SignUp: React.FC<AccountMenuProps> = ({ login }) => {
                   autoComplete='new-password'
                 />
               </Grid>
+              {signUpError && <div>{signUpError}</div>}
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value='allowExtraEmails' color='primary' />}
