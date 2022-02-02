@@ -20,18 +20,16 @@ import { showUserData } from '../../../firebase';
 interface AccountMenuProps {
   login: typeof UserActions.loginAction;
   addSinglePoints: typeof PointsActions.addSinglePointsAction;
-  name: string;
-  lastName: string;
 }
 
 const theme = createTheme();
 
-const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints, name, lastName }) => {
+const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints}) => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
- 
+
   const navigate = useNavigate();
 
   const handleEmailChange = (event: React.BaseSyntheticEvent) => {

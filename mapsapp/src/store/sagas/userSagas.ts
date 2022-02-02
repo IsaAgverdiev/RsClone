@@ -10,12 +10,14 @@ import { useNavigate } from 'react-router-dom';
 type FirebaseError = { message: string };
 
 function* SignUpWorker(action: ReturnType<typeof UserActions.SignUp>) {
-  const { email, password, navigate } = action.payload;
+  const { email, password, navigate, name, lastName } = action.payload;
   console.log(action.payload);
   try {
     const auth = getAuth();
     const user = yield* call(createUserWithEmailAndPassword, auth, email, password);
+    const id = user.uid;
     console.log(user);
+    yield put(UserActions.SignUpSuccess(name, lastName, id))
     
     navigate('/main');
   } catch (error: unknown) {
