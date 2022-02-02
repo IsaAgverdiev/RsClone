@@ -8,6 +8,19 @@ export const logoutAction = createAction(UserActionTypes.LOGOUT, () => ({
 export const loginAction = createAction(UserActionTypes.LOGIN, () => ({
   payload: true,
 }));
+
+export const SignUp = createAction(UserActionTypes.SIGN_UP, (email, password, navigate) => ({
+  payload: { email, password, navigate },
+}));
+
+export const SignUpSuccess = createAction(UserActionTypes.SIGN_UP_SUCCESS, () => ({
+  payload: true,
+}));
+
+export const signUpError = createAction(UserActionTypes.SIGN_UP_ERROR, error => ({
+  payload: { error },
+}));
+
 export const updateUserDataAction = createAction(UserActionTypes.UPDATE_USER_DATA, (name, lastName) => ({
   payload: {
     name,

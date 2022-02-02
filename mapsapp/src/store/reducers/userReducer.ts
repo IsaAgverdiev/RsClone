@@ -7,6 +7,7 @@ export interface UserState {
     name: string;
     lastName: string;
   };
+  signUpError?: string;
 }
 
 const initialState: UserState = {
@@ -15,6 +16,7 @@ const initialState: UserState = {
     name: 'Marina',
     lastName: 'Lastname'
   },
+  signUpError: undefined,
 };
 
 const userReducer = createReducer(initialState, builder => {
@@ -24,6 +26,12 @@ const userReducer = createReducer(initialState, builder => {
     })
     .addCase(UserActions.loginAction, (state, action) => {
       state.isAuth = action.payload;
+    })
+    .addCase(UserActions.signUpError, (state, action) => {
+      state.signUpError = action.payload.error;
+    })
+    .addCase(UserActions.SignUp, (state, action) => {
+      state.signUpError = undefined;
     })
     .addCase(UserActions.updateUserDataAction, (state, action) => {
       state.personalInfo.name = action.payload.name;
