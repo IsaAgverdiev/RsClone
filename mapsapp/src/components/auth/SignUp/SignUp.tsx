@@ -13,10 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as UserActions from '../../../store/actions/userActions';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 interface AccountMenuProps {
-  signUp: typeof UserActions.SignUp;
+  signUp: typeof UserActions.SignUpAction;
   signUpError?: string;
 }
 
@@ -53,7 +52,6 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
   const handleRegister = (email: string, password: string) => {
     signUp(email, password, navigate);
   };
-  console.log(signUpError);
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
