@@ -1,17 +1,17 @@
 import React from "react";
-import ModalInputs from './components/AddPointsInputs';
+import AddPointInputs from './components/AddPointsInputs';
 
-interface ModalProps {
+interface AddPointsElProps {
   markerLat: number;
   markerLng: number;
 }
 
-const MapModal = ({ markerLat, markerLng }: ModalProps) => {
+const AddPointsEl = ({ markerLat, markerLng }: AddPointsElProps) => {
 
   return (
-    <ModalInputs lat={markerLat} lng={markerLng} />
+    <AddPointInputs lat={markerLat} lng={markerLng} />
   );
 
 }
 
-export default MapModal;
+export default AddPointsEl;
