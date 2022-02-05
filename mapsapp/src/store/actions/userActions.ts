@@ -17,11 +17,11 @@ export const loginErrorAction = createAction(UserActionTypes.LOGIN_ERROR, error 
   payload: { error },
 }));
 
-export const SignUpAction = createAction(UserActionTypes.SIGN_UP, (email, password, navigate) => ({
+export const signUpAction = createAction(UserActionTypes.SIGN_UP, (email, password, navigate) => ({
   payload: { email, password, navigate },
 }));
 
-export const SignUpSuccessAction = createAction(UserActionTypes.SIGN_UP_SUCCESS, () => ({
+export const signUpSuccessAction = createAction(UserActionTypes.SIGN_UP_SUCCESS, () => ({
   payload: true,
 }));
 

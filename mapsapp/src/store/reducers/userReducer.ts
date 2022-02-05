@@ -27,12 +27,20 @@ const userReducer = createReducer(initialState, builder => {
     .addCase(UserActions.loginAction, (state, action) => {
       state.loginError = undefined;
     })
-
-    .addCase(UserActions.SignUpAction, (state, action) => {
+    .addCase(UserActions.loginSuccessAction, (state, action) => {
+      state.isAuth = action.payload;
+    })
+    .addCase(UserActions.loginErrorAction, (state, action) => {
+      state.loginError = action.payload.error;
+    })
+    .addCase(UserActions.signUpAction, (state, action) => {
       state.signUpError = undefined;
     })
     .addCase(UserActions.signUpErrorAction, (state, action) => {
       state.signUpError = action.payload.error;
+    })
+    .addCase(UserActions.signUpSuccessAction, (state, action) => {
+      state.isAuth = action.payload;
     });
 });
 

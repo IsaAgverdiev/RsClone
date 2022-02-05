@@ -11,12 +11,13 @@ import { showPoints } from '../../firebase';
 
 type FirebaseError = { message: string };
 
-function* SignUpWorker(action: ReturnType<typeof UserActions.SignUpAction>) {
+function* SignUpWorker(action: ReturnType<typeof UserActions.signUpAction>) {
   const { email, password, navigate } = action.payload;
   try {
     const auth = getAuth();
     const user = yield* call(createUserWithEmailAndPassword, auth, email, password);
 
+    yield put(UserActions.signUpSuccessAction());
     navigate('/main');
   } catch (error: unknown) {
     const { message } = error as FirebaseError;
@@ -24,7 +25,7 @@ function* SignUpWorker(action: ReturnType<typeof UserActions.SignUpAction>) {
   }
 }
 
-function* loginWorker(action: ReturnType<typeof UserActions.SignUpAction>) {
+function* loginWorker(action: ReturnType<typeof UserActions.signUpAction>) {
   const { email, password, navigate } = action.payload;
   try {
     const auth = getAuth();
@@ -34,11 +35,12 @@ function* loginWorker(action: ReturnType<typeof UserActions.SignUpAction>) {
       const singlePoints = points.filter(point => point.type === 'single');
       addSinglePointsAction(singlePoints);
     });
-    
+    yield put(UserActions.loginSuccessAction());
+
     navigate('/main');
   } catch (error: unknown) {
     const { message } = error as FirebaseError;
-    yield put(UserActions.signUpErrorAction(message.replace('Firebase: ', '')));
+    yield put(UserActions.loginErrorAction(message.replace('Firebase: ', '')));
   }
 }
 

@@ -12,8 +12,6 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as UserActions from '../../../store/actions/userActions';
 import * as PointsActions from '../../../store/actions/pointsActions';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { showPoints } from '../../../firebase';
 
 interface AccountMenuProps {
   login: typeof UserActions.loginAction;
@@ -44,7 +42,6 @@ const SignIn: React.FC<AccountMenuProps> = ({ login, loginError }) => {
   const handleLogin = (email: string, password: string) => {
     login(email, password, navigate);
   };
-
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
@@ -63,30 +60,32 @@ const SignIn: React.FC<AccountMenuProps> = ({ login, loginError }) => {
             Sign in
           </Typography>
           <Box component='form' noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              value={emailValue}
-              onChange={handleEmailChange}
-              id='email'
-              label='email'
-              name='email'
-              autoComplete='email'
-              autoFocus
-            />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              value={passwordValue}
-              onChange={handlePasswordChange}
-              name='password'
-              label='Password'
-              type='password'
-              id='password'
-              autoComplete='current-password'
-            />
+            <Grid>
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                value={emailValue}
+                onChange={handleEmailChange}
+                id='email'
+                label='email'
+                name='email'
+                autoComplete='email'
+                autoFocus
+              />
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                value={passwordValue}
+                onChange={handlePasswordChange}
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='current-password'
+              />
+            </Grid>
             {loginError && <div>{loginError}</div>}
             <Button
               type='button'
