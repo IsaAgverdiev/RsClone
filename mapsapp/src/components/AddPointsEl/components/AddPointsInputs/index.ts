@@ -1,11 +1,9 @@
-// import { connect } from 'react-redux';
-// import AddPointsInputs from './AddPointsInputs';
-// import * as PointsActions from '../../../../store/actions/pointsActions'
+import { connect } from 'react-redux';
+import AddPointsInputs from './AddPointsInputs';
+import * as PointsActions from '../../../../store/actions/pointsActions'
 
-// const mapDispatchToProps = {
-//   addSinglePoints: PointsActions.addSinglePointsAction
-// };
+const mapDispatchToProps = {
+  addSinglePoints: PointsActions.addSinglePointsAction
+};
 
-// export default connect(null, mapDispatchToProps)(AddPointsInputs);
-
-export {default} from './AddPointsInputs'
+export default connect(null, mapDispatchToProps)(AddPointsInputs);

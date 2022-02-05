@@ -5,6 +5,8 @@ import './Map.scss'
 import AddPointsEl from "../../../../components/AddPointsEl";
 import ReactDOM from "react-dom";
 import * as PointsActions from '../../../../store/actions/pointsActions';
+import { Provider } from "react-redux";
+import store from "../../../../store/store";
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
@@ -14,7 +16,6 @@ interface MapboxMapProps {
   onCreated?(map: mapboxgl.Map): void;
   onLoaded?(map: mapboxgl.Map): void;
   onRemoved?(): void;
-  addSinglePoints: typeof PointsActions.addSinglePointsAction
 }
 
 const Map = ({
@@ -22,7 +23,6 @@ const Map = ({
   onCreated,
   onLoaded,
   onRemoved,
-  addSinglePoints
 }: MapboxMapProps) => {
   const [map, setMap] = useState<mapboxgl.Map>();
   const mapNode = useRef(null);
@@ -60,7 +60,9 @@ const Map = ({
         const coordinates = event.lngLat;
         const popupNode = document.createElement("div")
         ReactDOM.render(
-          <AddPointsEl markerLng={coordinates.lng} markerLat={coordinates.lat} addPoint={addSinglePoints}/>
+          <Provider store={store}>
+          <AddPointsEl markerLng={coordinates.lng} markerLat={coordinates.lat} />
+          </Provider>
           ,
           popupNode
         )

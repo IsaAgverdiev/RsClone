@@ -8,7 +8,7 @@ import * as PointsActions from '../../../../store/actions/pointsActions';
 interface AddPointInputsProps {
   lat: number;
   lng: number;
-  addPoint: typeof PointsActions.addSinglePointsAction;
+  addSinglePoints: typeof PointsActions.addSinglePointsAction;
 }
 
 
@@ -17,7 +17,7 @@ const pointsTypes = [
   "multiple"
 ];
 
-const AddPointInputs: React.FC<AddPointInputsProps>  = ({ lat, lng, addPoint }) => {
+const AddPointInputs: React.FC<AddPointInputsProps>  = ({ lat, lng, addSinglePoints }) => {
   const [pointType, setPointType] = React.useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +26,7 @@ const AddPointInputs: React.FC<AddPointInputsProps>  = ({ lat, lng, addPoint }) 
 
   const handleClick = () => {
     console.log("superclick");
-    addPoint({points: "aewe"})
+    addSinglePoints({points: "aewe"})
   }
 
 
