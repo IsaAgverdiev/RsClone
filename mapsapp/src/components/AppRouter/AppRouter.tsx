@@ -27,7 +27,7 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
         <Route path='Feature2' element={<Feature2 />} />
         <Route path='Feature3' element={<Feature3 />} />
         <Route path='/main/profile' element={<Profile />} />
-        <Route path='/main/settings' element={<Settings />} />
+        <Route path='/main/settings' element={<Settings name={''} lastName={''} />} />
       </Route>
       <Route path='*' element={<Navigate to='/main' />} />
     </Routes>
@@ -36,7 +36,7 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
       <Route path='/home' element={<Home />} />
       <Route path='/sign_up' element={<SignUp />} />
       <Route path='/forgot' element={<Forgot />} />
-      <Route path='/sign_in' element={<SignIn />} />
+      <Route path='/sign_in' element={<SignIn name={""} lastName={""} />} />
       <Route path='*' element={<Navigate to='/sign_in' />} />
     </Routes>
   );

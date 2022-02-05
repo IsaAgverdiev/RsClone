@@ -14,15 +14,14 @@ import * as UserActions from '../../store/actions/userActions';
 interface SettingsProps {
   name: string;
   lastName: string;
-  updateUserData: typeof UserActions.updateUserDataAction;
 }
 
 const theme = createTheme();
 
-const Settings: React.FC<SettingsProps> = ({ name, lastName, updateUserData }) => {
+const Settings: React.FC<SettingsProps> = ({ name, lastName, }) => {
   const [firstNameValue, setFirstNameValue] = useState(name);
   const [lastNameValue, setLastNameValue] = useState(lastName);
- 
+
 
   const handleFirstNameChange = (event: React.BaseSyntheticEvent) => {
     const newValue = event.target.value;
@@ -33,27 +32,25 @@ const Settings: React.FC<SettingsProps> = ({ name, lastName, updateUserData }) =
     const newValue = event.target.value;
     setLastNameValue(newValue);
   };
-  const handleUpdateUserData = () => {
-     updateUserData(firstNameValue, lastNameValue);
-  };
+
   return (
     <ThemeProvider theme={theme}>
-    <Container component='main' maxWidth='xs'>
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}>
-        <ListItemIcon>
+      <Container component='main' maxWidth='xs'>
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+          <ListItemIcon>
             <Settings2 fontSize="medium" />
           </ListItemIcon>
-        <Typography component='h1' variant='h5'>
-          Settings
-        </Typography>
-        <Box component='form' noValidate sx={{ mt: 3 }}>
+          <Typography component='h1' variant='h5'>
+            Settings
+          </Typography>
+          <Box component='form' noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -80,11 +77,11 @@ const Settings: React.FC<SettingsProps> = ({ name, lastName, updateUserData }) =
                   autoComplete='family-name'
                 />
               </Grid>
-                         </Grid>
-                  <Button type='submit' onClick={handleUpdateUserData} fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+            </Grid>
+            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
               Submit
             </Button>
-        </Box>
+          </Box>
         </Box>
       </Container>
     </ThemeProvider>

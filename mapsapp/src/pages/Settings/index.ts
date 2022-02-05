@@ -12,9 +12,7 @@ const mapStateToProps = (state: AppState) => ({
 
 // export default connect(mapStateToProps)(Settings);
 
-const mapDispatchToProps = {
-  updateUserData: UserActions.updateUserDataAction,
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+
+export default Settings;
 
