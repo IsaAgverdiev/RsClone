@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-interface ModalInputsProps {
+interface AddPointInputsProps {
   lat: number;
   lng: number
 }
@@ -14,7 +14,7 @@ const pointsTypes = [
   "multiple"
 ];
 
-const ModalInputs = ({ lat, lng }: ModalInputsProps) => {
+const AddPointInputs = ({ lat, lng }: AddPointInputsProps) => {
   const [pointType, setPointType] = React.useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +64,7 @@ const ModalInputs = ({ lat, lng }: ModalInputsProps) => {
           type="text"
 
         />
-        <Button type="submit" variant="contained">
+        <Button variant="contained">
           Add Point
         </Button>
       </div>
@@ -72,4 +72,4 @@ const ModalInputs = ({ lat, lng }: ModalInputsProps) => {
   );
 }
 
-export default ModalInputs
+export default AddPointInputs;

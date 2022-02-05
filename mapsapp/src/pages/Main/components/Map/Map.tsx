@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import mapboxgl, { LngLat, MapMouseEvent } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import './Map.scss'
-import MapModal from "../../../../components/MapModal";
-import "../../../../components/MapModal/mapModal.scss"
+import MapModal from "../../../../components/AddPointsEl";
 import ReactDOM from "react-dom";
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
