@@ -3,9 +3,12 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import * as PointsActions from '../../../../store/actions/pointsActions';
+
 interface AddPointInputsProps {
   lat: number;
-  lng: number
+  lng: number;
+  addPoint: typeof PointsActions.addSinglePointsAction;
 }
 
 
@@ -14,12 +17,18 @@ const pointsTypes = [
   "multiple"
 ];
 
-const AddPointInputs = ({ lat, lng }: AddPointInputsProps) => {
+const AddPointInputs: React.FC<AddPointInputsProps>  = ({ lat, lng, addPoint }) => {
   const [pointType, setPointType] = React.useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPointType(event.target.value);
   };
+
+  const handleClick = () => {
+    console.log("superclick");
+    addPoint({points: "aewe"})
+  }
+
 
   return (
     <Box
@@ -64,7 +73,7 @@ const AddPointInputs = ({ lat, lng }: AddPointInputsProps) => {
           type="text"
 
         />
-        <Button variant="contained">
+        <Button variant="contained" onClick={handleClick}>
           Add Point
         </Button>
       </div>

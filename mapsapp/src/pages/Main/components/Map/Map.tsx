@@ -4,6 +4,8 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import './Map.scss'
 import AddPointsEl from "../../../../components/AddPointsEl";
 import ReactDOM from "react-dom";
+import * as PointsActions from '../../../../store/actions/pointsActions';
+
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
 
@@ -12,6 +14,7 @@ interface MapboxMapProps {
   onCreated?(map: mapboxgl.Map): void;
   onLoaded?(map: mapboxgl.Map): void;
   onRemoved?(): void;
+  addSinglePoints: typeof PointsActions.addSinglePointsAction
 }
 
 const Map = ({
@@ -19,12 +22,14 @@ const Map = ({
   onCreated,
   onLoaded,
   onRemoved,
+  addSinglePoints
 }: MapboxMapProps) => {
   const [map, setMap] = useState<mapboxgl.Map>();
   const mapNode = useRef(null);
   const [lng, setLng] = useState(37.60);
   const [lat, setLat] = useState(55.73);
   const [zoom, setZoom] = useState(10);
+ 
 
 
   useEffect(() => {
@@ -50,11 +55,12 @@ const Map = ({
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       });
 
-      const addPopup = (event: MapMouseEvent) => {
+      const addPopup = (event: MapMouseEvent ) => {
+       
         const coordinates = event.lngLat;
         const popupNode = document.createElement("div")
         ReactDOM.render(
-          <AddPointsEl markerLng={coordinates.lng} markerLat={coordinates.lat} />
+          <AddPointsEl markerLng={coordinates.lng} markerLat={coordinates.lat} addPoint={addSinglePoints}/>
           ,
           popupNode
         )
