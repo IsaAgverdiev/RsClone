@@ -29,7 +29,7 @@ const Map = ({
   const [lng, setLng] = useState(37.60);
   const [lat, setLat] = useState(55.73);
   const [zoom, setZoom] = useState(10);
- 
+  const [pointOpen, setPointOpen] = useState(true)
 
 
   useEffect(() => {
@@ -55,21 +55,26 @@ const Map = ({
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       });
 
-      const addPopup = (event: MapMouseEvent ) => {
-       
+      const addPopup = (event: MapMouseEvent) => {
+
+   
         const coordinates = event.lngLat;
         const popupNode = document.createElement("div")
-        ReactDOM.render(
-          <Provider store={store}>
-          <AddPointsEl markerLng={coordinates.lng} markerLat={coordinates.lat} />
-          </Provider>
-          ,
-          popupNode
-        )
+
+    
+          ReactDOM.render(
+            <Provider store={store}>
+              <AddPointsEl markerLng={coordinates.lng} markerLat={coordinates.lat}  />
+            </Provider>
+            ,
+            popupNode
+          )
+        
 
         const popup = new mapboxgl.Popup({ closeOnClick: true, focusAfterOpen: true })
           .setLngLat(coordinates)
           .setDOMContent(popupNode);
+
         popup.addTo(mapboxMap)
 
         const marker = new mapboxgl.Marker({ draggable: true })

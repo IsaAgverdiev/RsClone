@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import * as PointsActions from '../../../../store/actions/pointsActions';
+import { createPoint } from '../../../../firebase'
 
 interface AddPointInputsProps {
   lat: number;
@@ -11,22 +12,37 @@ interface AddPointInputsProps {
   addSinglePoints: typeof PointsActions.addSinglePointsAction;
 }
 
-
 const pointsTypes = [
   "single",
   "multiple"
 ];
 
-const AddPointInputs: React.FC<AddPointInputsProps>  = ({ lat, lng, addSinglePoints }) => {
+const AddPointInputs: React.FC<AddPointInputsProps> = ({ lat, lng, addSinglePoints }) => {
   const [pointType, setPointType] = React.useState('');
+  const [description, setDescription] = React.useState('');
+  const [closePopup, setClosePopup] = React.useState(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPointType(event.target.value);
   };
 
+  const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(event.target.value);
+  };
+
+
   const handleClick = () => {
-    console.log("superclick");
-    addSinglePoints({points: "aewe"})
+    const point = {
+      type: { pointType },
+      lat: { lat },
+      lng: { lng },
+      description: { description }
+    }
+    setClosePopup(true)
+    createPoint(lat, lng, pointType, description)
+    console.log(point);
+    addSinglePoints(point)
   }
 
 
@@ -38,6 +54,8 @@ const AddPointInputs: React.FC<AddPointInputsProps>  = ({ lat, lng, addSinglePoi
       }}
       noValidate
       autoComplete="off"
+      display={closePopup ? "none" : ""}
+
     >
       <div>
         <TextField
@@ -45,7 +63,7 @@ const AddPointInputs: React.FC<AddPointInputsProps>  = ({ lat, lng, addSinglePoi
           select
           label="Type"
           value={pointType}
-          onChange={handleChange}
+          onChange={handleTypeChange}
           helperText="Please select point type"
         >
           {pointsTypes.map((pointType: string) => (
@@ -71,7 +89,7 @@ const AddPointInputs: React.FC<AddPointInputsProps>  = ({ lat, lng, addSinglePoi
           id="outlined-description"
           label="Description"
           type="text"
-
+          onChange={handleDescriptionChange}
         />
         <Button variant="contained" onClick={handleClick}>
           Add Point

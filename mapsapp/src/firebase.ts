@@ -17,6 +17,7 @@ export const firebaseApp = initializeApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 
+
 export async function getFirebaseFolder(db: Firestore, folderName: string) {
   const dataSnapshot = await getDocs(collection(db, folderName));
   const dataList = dataSnapshot.docs.map(doc => doc.data());
@@ -29,10 +30,10 @@ export async function showPoints() {
   return pointsList;
 }
 
-export async function createUserRecord(id : string, name: string, lastName : string ) {
- await setDoc(doc(db, "users", id ), { name:`${name}`, lastName:`${lastName}` }) 
+export async function createUserRecord(id: string, name: string, lastName: string) {
+  await setDoc(doc(db, "users", id), { name: `${name}`, lastName: `${lastName}` })
 }
-export async function showUserData(id : string) {
+export async function showUserData(id: string) {
   const docRef = doc(db, "users", id);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
@@ -40,5 +41,14 @@ export async function showUserData(id : string) {
   } else {
     console.log("No such document!");
   }
-  
- }
+
+}
+
+export async function createPoint( lng: number, lat: number, type: string, description: string) {
+  await setDoc(doc(db, "points", "test"), {
+    lng: lng,
+    lat: lat,
+    type: type,
+    description: description,
+  })
+}
