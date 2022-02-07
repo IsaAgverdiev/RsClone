@@ -1,5 +1,5 @@
-import { takeEvery, all, put } from 'redux-saga/effects';
-import { call } from 'typed-redux-saga';
+import { takeEvery, all } from 'redux-saga/effects';
+import { call, put } from 'typed-redux-saga';
 
 import * as PointsActions from '../actions/pointsActions';
 import * as PointsActionTypes from '../actionTypes/pointsActionTypes';
