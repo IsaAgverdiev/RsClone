@@ -45,18 +45,22 @@ export async function showUserData(id: string) {
 }
 
 export async function createPoint(lng: number, lat: number, type: string, description: string) {
+  
   try {
-    await addDoc(collection(db, "points"), {
+    let point = {
       lng: lng,
       lat: lat,
       type: type,
       description: description,
-    })
+    }
+    await addDoc(collection(db, "points"), point)
 
     const querySnapshot = await getDocs(collection(db, "points"));
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());
     });
+
+    return point;
   }
   catch (err) {
     alert(err);

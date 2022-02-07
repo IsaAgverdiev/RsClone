@@ -20,7 +20,7 @@ function* SignUpWorker(action: ReturnType<typeof UserActions.SignUp>) {
     navigate('/main');
   } catch (error: unknown) {
     const { message } = error as FirebaseError;
-    yield put(UserActions.signUpError(message.replace('Firebase: ', '')));
+    yield put(UserActions.signUpError(message.replace('Firebase: ', '')));yield put(UserActions.signUpError(message.replace('Firebase: ', '')));
   }
 }
 
