@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getDocs, collection, Firestore, getFirestore, doc, setDoc, getDoc } from 'firebase/firestore/lite';
+import { getDocs, collection, Firestore, getFirestore, doc, setDoc, getDoc, addDoc  } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCD99UpQJevso1Zx51dshiXOb1vZP2J29Y',
@@ -45,7 +45,7 @@ export async function showUserData(id: string) {
 }
 
 export async function createPoint( lng: number, lat: number, type: string, description: string) {
-  await setDoc(doc(db, "points", "test"), {
+  await addDoc(collection(db, "points"), {
     lng: lng,
     lat: lat,
     type: type,
