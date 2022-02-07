@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getDocs, collection, Firestore, getFirestore, doc, setDoc, getDoc, addDoc  } from 'firebase/firestore/lite';
+import { getDocs, collection, Firestore, getFirestore, doc, setDoc, getDoc, addDoc } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCD99UpQJevso1Zx51dshiXOb1vZP2J29Y',
@@ -44,11 +44,21 @@ export async function showUserData(id: string) {
 
 }
 
-export async function createPoint( lng: number, lat: number, type: string, description: string) {
-  await addDoc(collection(db, "points"), {
-    lng: lng,
-    lat: lat,
-    type: type,
-    description: description,
-  })
+export async function createPoint(lng: number, lat: number, type: string, description: string) {
+  try {
+    await addDoc(collection(db, "points"), {
+      lng: lng,
+      lat: lat,
+      type: type,
+      description: description,
+    })
+
+    const querySnapshot = await getDocs(collection(db, "points"));
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+    });
+  }
+  catch (err) {
+    alert(err);
+  }
 }
