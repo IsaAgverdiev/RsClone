@@ -40,8 +40,6 @@ const AddPointInputs: React.FC<AddPointInputsProps> = ({ lat, lng, addSinglePoin
       description:  description 
     }
     setClosePopup(true)
-    // createPoint(lat, lng, pointType, description)
-    // console.log(point);
     addSinglePoints(point)
   }
 
