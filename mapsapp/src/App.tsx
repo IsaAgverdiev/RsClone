@@ -5,6 +5,7 @@ import AppRouter from './components/AppRouter';
 import store from './store/store';
 import './styles/App.scss';
 import { db, getFirebaseFolder } from './firebase';
+import LoadingScreen from './components/LoadingScreen'
 
 async function showUsers() {
   const usersList = await getFirebaseFolder(db, 'users');
@@ -18,6 +19,7 @@ const App = () => {
       <BrowserRouter>
         <div className='App'>
           <AppRouter />
+         {/* <LoadingScreen isLoading/>; */}
         </div>
       </BrowserRouter>
     </Provider>

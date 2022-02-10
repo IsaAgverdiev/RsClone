@@ -9,17 +9,23 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings2 from '@mui/icons-material/Settings';
-import * as UserActions from '../../store/actions/userActions';
+//import * as UserActions from '../../store/actions/userActions';
 
+// interface SettingsProps {
+//   name: string;
+//   lastName: string;
+//   id: string; 
+//   updateUserData: typeof UserActions.SignUpSuccess;
+// }
 interface SettingsProps {
   name: string;
   lastName: string;
-  updateUserData: typeof UserActions.updateUserDataAction;
+  id: string; 
 }
 
 const theme = createTheme();
 
-const Settings: React.FC<SettingsProps> = ({ name, lastName, updateUserData }) => {
+const Settings: React.FC<SettingsProps> = ({ name, lastName, id }) => {
   const [firstNameValue, setFirstNameValue] = useState(name);
   const [lastNameValue, setLastNameValue] = useState(lastName);
  
@@ -33,9 +39,9 @@ const Settings: React.FC<SettingsProps> = ({ name, lastName, updateUserData }) =
     const newValue = event.target.value;
     setLastNameValue(newValue);
   };
-  const handleUpdateUserData = () => {
-     updateUserData(firstNameValue, lastNameValue);
-  };
+  // const handleUpdateUserData = () => {
+  //   updateUserData(firstNameValue, lastNameValue, id);
+  // };
   return (
     <ThemeProvider theme={theme}>
     <Container component='main' maxWidth='xs'>
@@ -81,7 +87,8 @@ const Settings: React.FC<SettingsProps> = ({ name, lastName, updateUserData }) =
                 />
               </Grid>
                          </Grid>
-                  <Button type='submit' onClick={handleUpdateUserData} fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+                  {/* <Button type='submit' onClick={handleUpdateUserData} fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}> */}
+                  <Button type='submit'  fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
               Submit
             </Button>
         </Box>

@@ -3,6 +3,7 @@ import * as UserActions from '../actions/userActions';
 
 export interface UserState {
   isAuth: boolean;
+  isLoading: boolean;
   personalInfo: {
     name: string;
     lastName: string;
@@ -13,6 +14,7 @@ export interface UserState {
 
 const initialState: UserState = {
   isAuth: true,
+  isLoading: false,
   personalInfo: {
     name: '',
     lastName: '',

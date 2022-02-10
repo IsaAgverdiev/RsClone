@@ -15,7 +15,9 @@ export const signUpErrorSelector = createSelector(userSelector, userState =>
 export const personalInfoSelector = createSelector(userSelector, userState =>
   get(userState, 'personalInfo', {})
 );
-
+export const idSelector = createSelector(personalInfoSelector, personalInfo =>
+  get(personalInfo, 'id', '')
+);
 export const nameSelector = createSelector(personalInfoSelector, personalInfo =>
   get(personalInfo, 'name', '')
 );
