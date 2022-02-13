@@ -13,32 +13,27 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as UserActions from '../../../store/actions/userActions';
 import * as PointsActions from '../../../store/actions/pointsActions';
 
-// master
-<!-- import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { showPoints } from '../../../firebase';
-import { showUserData } from '../../../firebase';
- -->
-
+//  import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+// import { showPoints } from '../../../firebase';
+// import { showUserData } from '../../../firebase';
 
 interface AccountMenuProps {
   login: typeof UserActions.loginAction;
   loginError?: string;
-  addSinglePoints: typeof PointsActions.addSinglePointsAction;
-  name: string;
-  lastName: string;
+  // addSinglePoints: typeof PointsActions.addSinglePointsAction;
+  // name: string;
+  // lastName: string;
 }
 
 const theme = createTheme();
 
-
 const SignIn: React.FC<AccountMenuProps> = ({ login, loginError }) => {
-// const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints, name, lastName }) => {
-// >>>>>>> master
+  // const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints, name, lastName }) => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
- 
+
   const navigate = useNavigate();
 
   const handleEmailChange = (event: React.BaseSyntheticEvent) => {
@@ -54,23 +49,22 @@ const SignIn: React.FC<AccountMenuProps> = ({ login, loginError }) => {
   const handleLogin = (email: string, password: string) => {
     login(email, password, navigate);
 
-<!--     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        console.log(user);
-        login();
-        const uid = user.uid
-        showUserData(uid);
-        let data = showPoints()
-        data.then((points) => {
-          const singlePoints = points.filter((point) => point.type === "single")
-          addSinglePoints(singlePoints)
-        })
-        
-        navigate('/main');
-      })
-      .catch(console.error);
- -->
+    //  const auth = getAuth();
+    //   signInWithEmailAndPassword(auth, email, password)
+    //     .then(({ user }) => {
+    //       console.log(user);
+    //       login();
+    //       const uid = user.uid
+    //       showUserData(uid);
+    //       let data = showPoints()
+    //       data.then((points) => {
+    //         const singlePoints = points.filter((point) => point.type === "single")
+    //         addSinglePoints(singlePoints)
+    //       })
+
+    //       navigate('/main');
+    //     })
+    //     .catch(console.error);
   };
   return (
     <ThemeProvider theme={theme}>
