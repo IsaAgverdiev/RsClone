@@ -3,6 +3,7 @@ import * as UserActions from '../actions/userActions';
 
 export interface UserState {
   isAuth: boolean;
+  isLoading: boolean;
   personalInfo: {
     name: string;
     lastName: string;
@@ -14,6 +15,7 @@ export interface UserState {
 
 const initialState: UserState = {
   isAuth: true,
+  isLoading: false,
   personalInfo: {
     name: '',
     lastName: '',
@@ -27,6 +29,9 @@ const userReducer = createReducer(initialState, builder => {
   builder
     .addCase(UserActions.logoutAction, (state, action) => {
       state.isAuth = action.payload;
+    })
+    .addCase(UserActions.isLoadingAction, (state, action) => {
+      state.isLoading = action.payload.status;
     })
     .addCase(UserActions.loginAction, (state, action) => {
       state.loginError = undefined;
@@ -45,14 +50,10 @@ const userReducer = createReducer(initialState, builder => {
       state.signUpError = action.payload.error;
     })
     .addCase(UserActions.signUpSuccessAction, (state, action) => {
-      state.isAuth = action.payload;
+      state.isAuth = action.payload.isAuth;
+      state.personalInfo.name = action.payload.name;
+      state.personalInfo.lastName = action.payload.lastName;
     });
-
-  // .addCase(UserActions.SignUpSuccess, (state, action) => {
-  //   state.personalInfo.name = action.payload.name;
-  //   state.personalInfo.lastName = action.payload.lastName;
-  //   state.personalInfo.id = action.payload.id;
-  // })
 });
 
 export default userReducer;

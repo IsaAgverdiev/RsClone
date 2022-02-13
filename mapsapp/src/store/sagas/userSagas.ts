@@ -7,17 +7,18 @@ import * as UserSelectors from '../selectors/userSelectors';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import * as PointsActions from '../actions/pointsActions';
 import { addSinglePointsAction } from '../actions/pointsActions';
-import { showPoints } from '../../firebase';
+import { createUserRecord, showPoints } from '../../firebase';
 
 type FirebaseError = { message: string };
 
 function* SignUpWorker(action: ReturnType<typeof UserActions.signUpAction>) {
-  const { email, password, navigate } = action.payload;
+  const { email, password, navigate, name, lastName } = action.payload;
   try {
     const auth = getAuth();
     const user = yield* call(createUserWithEmailAndPassword, auth, email, password);
-
-    yield put(UserActions.signUpSuccessAction());
+    createUserRecord(name, lastName);
+    yield put(UserActions.signUpSuccessAction(true, name, lastName));
+    yield put(UserActions.isLoadingAction(false));
     navigate('/main');
   } catch (error: unknown) {
     const { message } = error as FirebaseError;
