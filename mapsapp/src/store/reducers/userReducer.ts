@@ -6,15 +6,19 @@ export interface UserState {
   personalInfo: {
     name: string;
     lastName: string;
+    id: string;
   };
+  signUpError?: string;
 }
 
 const initialState: UserState = {
   isAuth: true,
   personalInfo: {
-    name: 'Marina',
-    lastName: 'Lastname'
+    name: '',
+    lastName: '',
+    id: ''
   },
+  signUpError: undefined,
 };
 
 const userReducer = createReducer(initialState, builder => {
@@ -25,9 +29,16 @@ const userReducer = createReducer(initialState, builder => {
     .addCase(UserActions.loginAction, (state, action) => {
       state.isAuth = action.payload;
     })
-    .addCase(UserActions.updateUserDataAction, (state, action) => {
+    .addCase(UserActions.signUpError, (state, action) => {
+      state.signUpError = action.payload.error;
+    })
+    .addCase(UserActions.SignUp, (state, action) => {
+      state.signUpError = undefined;
+    })
+    .addCase(UserActions.SignUpSuccess, (state, action) => {
       state.personalInfo.name = action.payload.name;
       state.personalInfo.lastName = action.payload.lastName;
+      state.personalInfo.id = action.payload.id;
     })
 });
 

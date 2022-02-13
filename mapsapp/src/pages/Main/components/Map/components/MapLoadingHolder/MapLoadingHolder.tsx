@@ -3,7 +3,7 @@ import WorldIcon from "./components/WorldIcon";
 import './mapLoadingHolder.scss'
 
 const MapLoadingHolder = () => {
-console.log('%cMapLoadingHolder.tsx line:6 "I am a holder"', 'color: #007acc;', "I am a holder");
+
   return (
     <div className="loading-holder">
       <WorldIcon className="icon" />
