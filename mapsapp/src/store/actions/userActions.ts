@@ -13,6 +13,7 @@ export const loginSuccessAction = createAction(UserActionTypes.LOGIN_SUCCESS, ()
   payload: true,
 }));
 
+
 export const loginErrorAction = createAction(UserActionTypes.LOGIN_ERROR, error => ({
   payload: { error },
 }));
@@ -23,8 +24,18 @@ export const signUpAction = createAction(UserActionTypes.SIGN_UP, (email, passwo
 
 export const signUpSuccessAction = createAction(UserActionTypes.SIGN_UP_SUCCESS, () => ({
   payload: true,
+
+// export const SignUp = createAction(UserActionTypes.SIGN_UP, (email, password, navigate, name, lastName) => ({
+//   payload: { email, password, navigate, name, lastName },
+// }));
+
+// export const SignUpSuccess = createAction(UserActionTypes.SIGN_UP_SUCCESS, (name, lastName, id) => ({
+//   payload: {name, lastName, id}
+// >>>>>>> master
 }));
 
 export const signUpErrorAction = createAction(UserActionTypes.SIGN_UP_ERROR, error => ({
   payload: { error },
 }));
+
+
