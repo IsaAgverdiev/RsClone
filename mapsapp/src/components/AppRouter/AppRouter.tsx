@@ -14,9 +14,11 @@ import Map from '../../pages/Main/components/Map';
 interface AppRouterProps {
   authorized: boolean;
   name: string | null;
+  // onLoaded: boolean;
 }
 
 const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
+  // console.log(onLoaded)
   return authorized ? (
     <Routes>
       <Route path='/home' element={<Home />} />

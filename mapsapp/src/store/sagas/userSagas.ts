@@ -15,9 +15,10 @@ function* SignUpWorker(action: ReturnType<typeof UserActions.SignUp>) {
   try {
     const auth = getAuth();
     const user = yield* call(createUserWithEmailAndPassword, auth, email, password);
-    // const id = User.uid;
-    const id = UserSelectors.idSelector;
-    console.log(user);
+    const id = user.user.uid;
+    // const id = UserSelectors.idSelector;
+    console.log('id', id);
+    console.log('user', user);
     yield put(UserActions.SignUpSuccess(name, lastName, id))
     
     navigate('/main');

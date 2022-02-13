@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import AppRouter from './components/AppRouter';
@@ -14,12 +15,15 @@ async function showUsers() {
 showUsers();
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
   return (
     <Provider store={store}>
       <BrowserRouter>
         <div className='App'>
-          <AppRouter />
-         {/* <LoadingScreen isLoading/>; */}
+          {/* <AppRouter 
+           onLoaded={handleAppLoading}/> */}
+           <AppRouter/>
+         {/* {loading && <LoadingScreen isLoading/>} */}
         </div>
       </BrowserRouter>
     </Provider>
