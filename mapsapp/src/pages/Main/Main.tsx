@@ -39,16 +39,15 @@ export default function Main() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position='fixed' open={open}>
         <Toolbar>
           <Box className='menu'>
             <IconButton
-              color="inherit"
-              aria-label="open drawer"
+              color='inherit'
+              aria-label='open drawer'
               onClick={handleDrawerOpen}
-              edge="start"
-              sx={{ mr: 2, ...(open && { display: 'none' }) }}
-            >
+              edge='start'
+              sx={{ mr: 2, ...(open && { display: 'none' }) }}>
               <MenuIcon />
             </IconButton>
 
@@ -70,10 +69,9 @@ export default function Main() {
             boxSizing: 'border-box',
           },
         }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
+        variant='persistent'
+        anchor='left'
+        open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
@@ -82,13 +80,10 @@ export default function Main() {
         <Divider />
         <List>
           {['Feature1', 'Feature2', 'Feature3', 'Feature4'].map((text, index) => (
-
             <NavLink to={text} key={text}>
               <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                <ListItemText sx={{ color: 'black' }} primary={text} />
               </ListItem>
             </NavLink>
           ))}
