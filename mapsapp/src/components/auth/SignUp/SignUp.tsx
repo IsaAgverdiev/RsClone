@@ -13,12 +13,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as UserActions from '../../../store/actions/userActions';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { createUserRecord } from '../../../firebase'
 
+<!-- import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserRecord } from '../../../firebase'
+master -->
 
 interface AccountMenuProps {
-  signUp: typeof UserActions.SignUp;
+  signUp: typeof UserActions.signUpAction;
   signUpError?: string;
 }
 
@@ -55,7 +56,7 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
   const handleRegister = (email: string, password: string) => {
     signUp(email, password, navigate, firstNameValue, lastNameValue);
   };
-  console.log(signUpError);
+
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
@@ -74,7 +75,7 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
             Sign up
           </Typography>
           <Box component='form' noValidate sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete='given-name'
@@ -145,7 +146,7 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
               <Grid item>
                 <Link to='/sing_in'>
                   <Typography variant='body2' style={{ color: 'black' }}>
-                    Sign Up
+                    Sign In
                   </Typography>
                 </Link>
               </Grid>
