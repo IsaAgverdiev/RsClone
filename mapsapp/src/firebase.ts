@@ -1,6 +1,15 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getDocs, collection, Firestore, getFirestore, doc, setDoc, getDoc } from 'firebase/firestore/lite';
+import {
+  getDocs,
+  collection,
+  Firestore,
+  getFirestore,
+  doc,
+  setDoc,
+  addDoc,
+  getDoc,
+} from 'firebase/firestore/lite';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCD99UpQJevso1Zx51dshiXOb1vZP2J29Y',
@@ -29,16 +38,21 @@ export async function showPoints() {
   return pointsList;
 }
 
-export async function createUserRecord(id : string, name: string, lastName : string ) {
- await setDoc(doc(db, "users", id ), { name:`${name}`, lastName:`${lastName}` }) 
+export async function createUserRecord(name: string, lastName: string) {
+  const docRef = await addDoc(collection(db, 'users'), {
+    personalInfo: {
+      lastName: lastName,
+      name: name,
+    },
+  });
 }
-export async function showUserData(id : string) {
-  const docRef = doc(db, "users", id);
+
+export async function showUserData(id: string) {
+  const docRef = doc(db, 'users', id);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
+    console.log('Document data:', docSnap.data());
   } else {
-    console.log("No such document!");
+    console.log('No such document!');
   }
-  
- }
+}

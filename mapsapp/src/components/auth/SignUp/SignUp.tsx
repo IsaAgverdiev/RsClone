@@ -14,17 +14,15 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as UserActions from '../../../store/actions/userActions';
 
-//  import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-// import { createUserRecord } from '../../../firebase'
-
 interface AccountMenuProps {
   signUp: typeof UserActions.signUpAction;
   signUpError?: string;
+  isLoading: typeof UserActions.isLoadingAction;
 }
 
 const theme = createTheme();
 
-const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
+const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError, isLoading }) => {
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
@@ -52,9 +50,14 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
     setPasswordValue(newValue);
   };
 
-  const handleRegister = (email: string, password: string) => {
-    // signUp(email, password, navigate, firstNameValue, lastNameValue);
-    signUp(email, password, navigate);
+  const handleRegister = (
+    email: string,
+    password: string,
+    firstNameValue: string,
+    lastNameValue: string
+  ) => {
+    signUp(email, password, navigate, firstNameValue, lastNameValue);
+    isLoading(true);
   };
 
   return (
@@ -136,7 +139,9 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
             </Grid>
             <Button
               type='button'
-              onClick={() => handleRegister(emailValue, passwordValue)}
+              onClick={() =>
+                handleRegister(emailValue, passwordValue, firstNameValue, lastNameValue)
+              }
               fullWidth
               variant='contained'
               sx={{ mt: 3, mb: 2 }}>

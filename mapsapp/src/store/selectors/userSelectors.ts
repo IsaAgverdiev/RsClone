@@ -8,6 +8,10 @@ export const isAuthSelector = createSelector(userSelector, userState =>
   get(userState, 'isAuth', false)
 );
 
+export const isLoadingSelector = createSelector(userSelector, userState =>
+  get(userState, 'isLoading', false)
+);
+
 export const signUpErrorSelector = createSelector(userSelector, userState =>
   get(userState, 'signUpError', undefined)
 );
