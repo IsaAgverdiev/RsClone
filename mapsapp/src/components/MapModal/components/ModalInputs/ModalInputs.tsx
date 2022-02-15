@@ -70,7 +70,7 @@ const ModalInputs = ({ lat, lng }: ModalInputsProps) => {
           type="text"
 
         />
-        <Button type="submit" variant="contained">
+        <Button variant="contained">
           Add Point
         </Button>
       </div>
