@@ -19,15 +19,15 @@ const style = {
 };
 
 interface MapModalProps {
-  modalOpen: boolean
+  openModal: boolean
 }
 
-const MapModal = ({modalOpen}: MapModalProps) => {
+const MapModal = ({openModal}: MapModalProps) => {
   
-  const [open, setOpen] = React.useState(modalOpen);
+  const [open, setOpen] = React.useState(openModal);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-console.log('%cMapModal.tsx line:29 open', 'color: #007acc;', open);
+
   return (
     <Modal
       open={open}
@@ -38,7 +38,6 @@ console.log('%cMapModal.tsx line:29 open', 'color: #007acc;', open);
       <Box sx={style}>
         <ModalInputs lat={0} lng={0} />
       </Box>
- 
     </Modal>
   );
 }
