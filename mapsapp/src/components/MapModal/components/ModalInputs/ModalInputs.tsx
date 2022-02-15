@@ -3,10 +3,13 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import * as PointsActions from '../../../../store/actions/pointsActions';
 
 interface ModalInputsProps {
   lat: number;
-  lng: number
+  lng: number;
+  addSinglePoints: typeof PointsActions.addSinglePointsAction;
+  closeModal: () => void
 }
 
 const pointsTypes = [
@@ -14,13 +17,27 @@ const pointsTypes = [
   "multiple"
 ];
 
-const ModalInputs = ({ lat, lng }: ModalInputsProps) => {
+const ModalInputs = ({ lat, lng, addSinglePoints, closeModal }: ModalInputsProps) => {
   const [pointType, setPointType] = React.useState('');
+  const [description, setDescription] = React.useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPointType(event.target.value);
   };
+  const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(event.target.value);
+  };
 
+  const handleClick = () => {
+    const point = {
+      type: pointType,
+      lat: lat,
+      lng: lng,
+      description: description
+    }
+    addSinglePoints(point);
+    closeModal()
+  }
 
   return (
     <Box
@@ -41,7 +58,7 @@ const ModalInputs = ({ lat, lng }: ModalInputsProps) => {
           value={pointType}
           autoComplete="Single"
           helperText="Please select point type"
-          onChange={handleChange}
+          onChange={handleTypeChange}
         >
           {pointsTypes.map((pointType: string) => (
             <MenuItem key={pointType} value={pointType}>
@@ -68,9 +85,9 @@ const ModalInputs = ({ lat, lng }: ModalInputsProps) => {
           id="outlined-description"
           label="Description"
           type="text"
-
+          onChange={handleDescriptionChange}
         />
-        <Button variant="contained">
+        <Button variant="contained" onClick={handleClick}>
           Add Point
         </Button>
       </div>

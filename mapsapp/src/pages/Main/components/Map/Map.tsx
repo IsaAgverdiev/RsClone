@@ -49,7 +49,6 @@ const Map = ({
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.button === 2) {
-      console.log('%cmap.tsx line:55 event', 'color: #007acc;', event);
       handleOpen()
     }
   }
@@ -59,7 +58,6 @@ const Map = ({
     setLng(coordinates.lng)
     setLat(coordinates.lat)
   }
-
 
   useEffect(() => {
     const node = mapNode.current;
@@ -109,7 +107,7 @@ const Map = ({
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description">
           <Box sx={style}>
-            <ModalInputs lat={lat} lng={lng} />
+            <ModalInputs lat={lat} lng={lng} closeModal={handleClose}/>
           </Box>
         </Modal>
 
