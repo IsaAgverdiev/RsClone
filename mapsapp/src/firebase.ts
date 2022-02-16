@@ -63,7 +63,7 @@ export async function showUserData(id: string) {
 
 export async function addPointDb(point: Point) {
   try {
-    await addDoc(collection(db, "points"), point);
+    await addDoc(collection(db, "points"), point);    
     const querySnapshot = await getDocs(collection(db, "points"));
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());
