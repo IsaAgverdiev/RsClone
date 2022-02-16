@@ -17,19 +17,6 @@ interface MapboxMapProps {
   onRemoved?(): void;
 }
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '30%',
-  left: '20%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-
 const Map = ({
   initialOptions = {},
   onCreated,
@@ -40,26 +27,32 @@ const Map = ({
   const mapNode = useRef(null);
   const [lng, setLng] = useState(37.60);
   const [lat, setLat] = useState(55.73);
+  const [modalX, setModalX] = useState(0);
+  const [modalY, setModalY] = useState(0);
   const [pointLng, setPointLng] = useState(0);
   const [pointLat, setPointLat] = useState(0);
   const [zoom, setZoom] = useState(10);
-
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
   const handleClick = (event: React.MouseEvent) => {
     if (event.button === 2) {
+      setModalCoordinates(event)
       handleOpen()
     }
+
   }
 
   const setMapCoordinates = (event: MapMouseEvent) => {
     let coordinates = event.lngLat
     setPointLng(coordinates.lng)
     setPointLat(coordinates.lat)
+  }
+
+  const setModalCoordinates = (event: React.MouseEvent) => {
+    setModalX(event.clientX);
+    setModalY(event.clientY);
   }
 
   useEffect(() => {
@@ -85,7 +78,6 @@ const Map = ({
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       });
       mapboxMap.on('mousedown', setMapCoordinates);
-
     }
 
     return () => {
@@ -96,19 +88,22 @@ const Map = ({
 
   }, []);
 
-  interface modalPosition {
-    top: number,
-    left: number
-  }
 
   return (
     <>
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div ref={mapNode} className="map-container" onMouseDown={handleClick} >
+      <div ref={mapNode} className="map-container" onMouseDown={handleClick} onContextMenu={(e) => e.preventDefault()} >
         {/* onContextMenu={(e) => e.preventDefault()} */}
-        <MapModal lat={pointLat} lng={pointLng} open={open} close={handleClose} />
+        <MapModal
+          lat={pointLat}
+          lng={pointLng}
+          open={open}
+          close={handleClose}
+          modalX={modalX}
+          modalY={modalY}
+           />
       </div>
     </>
   )
