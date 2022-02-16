@@ -6,6 +6,7 @@ import "../../../../components/MapModal/mapModal.scss"
 import Modal from '@mui/material/Modal';
 import Box from "@mui/material/Box";
 import ModalInputs from "../../../../components/MapModal/components/ModalInputs";
+import MapModal from "../../../../components/MapModal";
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
 
@@ -18,8 +19,8 @@ interface MapboxMapProps {
 
 const style = {
   position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
+  top: '30%',
+  left: '20%',
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
@@ -39,6 +40,8 @@ const Map = ({
   const mapNode = useRef(null);
   const [lng, setLng] = useState(37.60);
   const [lat, setLat] = useState(55.73);
+  const [pointLng, setPointLng] = useState(0);
+  const [pointLat, setPointLat] = useState(0);
   const [zoom, setZoom] = useState(10);
 
 
@@ -53,10 +56,10 @@ const Map = ({
     }
   }
 
-  const setCoordinates = (event: MapMouseEvent) => {
+  const setMapCoordinates = (event: MapMouseEvent) => {
     let coordinates = event.lngLat
-    setLng(coordinates.lng)
-    setLat(coordinates.lat)
+    setPointLng(coordinates.lng)
+    setPointLat(coordinates.lat)
   }
 
   useEffect(() => {
@@ -81,7 +84,8 @@ const Map = ({
         setLat(+(mapboxMap.getCenter().lat.toFixed(4)));
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       });
-      mapboxMap.on('mousedown', setCoordinates)
+      mapboxMap.on('mousedown', setMapCoordinates);
+
     }
 
     return () => {
@@ -92,25 +96,19 @@ const Map = ({
 
   }, []);
 
+  interface modalPosition {
+    top: number,
+    left: number
+  }
+
   return (
     <>
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
       <div ref={mapNode} className="map-container" onMouseDown={handleClick} >
-        
         {/* onContextMenu={(e) => e.preventDefault()} */}
-
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description">
-          <Box sx={style}>
-            <ModalInputs lat={lat} lng={lng} closeModal={handleClose}/>
-          </Box>
-        </Modal>
-
+        <MapModal lat={pointLat} lng={pointLng} open={open} close={handleClose} />
       </div>
     </>
   )

@@ -37,7 +37,7 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal }: ModalInputsProps
   }
   const handleClick = () => {
     const point = createPoint();
-    addSinglePoints(point);
+    // addSinglePoints(point);
     closeModal()
   }
 

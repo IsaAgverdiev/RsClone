@@ -1,7 +1,5 @@
 import React from "react";
-import ReactDom from "react-dom";
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import './mapModal.scss'
 import ModalInputs from './components/ModalInputs';
@@ -19,24 +17,23 @@ const style = {
 };
 
 interface MapModalProps {
-  openModal: boolean
+  open: boolean;
+  close: () => void;
+  lat: number;
+  lng: number
 }
 
-const MapModal = ({openModal}: MapModalProps) => {
-  
-  const [open, setOpen] = React.useState(openModal);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+const MapModal = ({open, close, lat, lng}: MapModalProps ) => {
 
   return (
     <Modal
       open={open}
-      onClose={handleClose}
+      onClose={close}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <ModalInputs lat={0} lng={0} />
+        <ModalInputs lat={lat} lng={lng} closeModal={close} />
       </Box>
     </Modal>
   );
