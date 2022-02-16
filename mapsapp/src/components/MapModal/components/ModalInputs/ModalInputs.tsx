@@ -4,6 +4,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import * as PointsActions from '../../../../store/actions/pointsActions';
+import { addPointDb } from '../../../../firebase';
+import { Point } from '../../../../types';
 
 interface ModalInputsProps {
   lat: number;
@@ -13,8 +15,8 @@ interface ModalInputsProps {
 }
 
 const pointsTypes = [
-  "single",
-  "multiple"
+  "Single",
+  "Multiple"
 ];
 
 const ModalInputs = ({ lat, lng, addSinglePoints, closeModal }: ModalInputsProps) => {
@@ -28,14 +30,18 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal }: ModalInputsProps
     setDescription(event.target.value);
   };
 
-  const handleClick = () => {
-    const point = {
-      type: pointType,
-      lat: lat,
+  const createPoint = () => {
+    return {
       lng: lng,
+      lat: lat,
+      type: pointType,
       description: description
     }
+  }
+  const handleClick = () => {
+    const point = createPoint();
     addSinglePoints(point);
+    addPointDb(point)
     closeModal()
   }
 

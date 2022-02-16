@@ -10,6 +10,8 @@ import {
   addDoc,
   getDoc,
 } from 'firebase/firestore/lite';
+import { Point } from './types';
+
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCD99UpQJevso1Zx51dshiXOb1vZP2J29Y',
@@ -54,5 +56,20 @@ export async function showUserData(id: string) {
     console.log('Document data:', docSnap.data());
   } else {
     console.log('No such document!');
+  }
+}
+
+
+
+export async function addPointDb(point: Point) {
+  try {
+    await addDoc(collection(db, "points"), point);
+    const querySnapshot = await getDocs(collection(db, "points"));
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+    });
+  }
+  catch (err) {
+    alert(err);
   }
 }

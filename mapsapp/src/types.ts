@@ -3,3 +3,10 @@ export type TypeRouters = {
   element: React.FC;
   exact?: boolean;
 };
+
+export type Point = {
+  lng: number,
+  lat: number,
+  type: string,
+  description: string
+}
