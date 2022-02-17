@@ -6,9 +6,6 @@ import ModalInputs from './components/ModalInputs';
 
 const style = {
   position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
   width: 400,
   height: 450,
   bgcolor: 'background.paper',
@@ -28,19 +25,17 @@ interface MapModalProps {
 
 const MapModal = ({ open, close, lat, lng, modalX, modalY }: MapModalProps) => {
 
-
   const setModalPosition = () => {
     let modalPosition = {
-      left: modalX + style.width / 2,
-      top: modalY + style.height / 2,
+      left: modalX - 2,
+      top: modalY - 2,
     }
     if (modalY > (window.innerHeight - style.height)) {
-      modalPosition.top = modalY - style.height / 2 ;
-    } 
-    if (modalX > window.innerWidth - style.width) {
-      modalPosition.left = modalX - style.width / 2
+      modalPosition.top = modalY - style.height + 2;
     }
-
+    if (modalX > window.innerWidth - style.width) {
+      modalPosition.left = modalX - style.width + 2;
+    }
     return modalPosition
   }
 
@@ -52,8 +47,10 @@ const MapModal = ({ open, close, lat, lng, modalX, modalY }: MapModalProps) => {
       onClose={close}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+
     >
-      <Box sx={style} style={position} >
+      <Box sx={style} style={position}
+        onMouseLeave={close}>
         <ModalInputs lat={lat} lng={lng} closeModal={close} />
       </Box>
     </Modal>

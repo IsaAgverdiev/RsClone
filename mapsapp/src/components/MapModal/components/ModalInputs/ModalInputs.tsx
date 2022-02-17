@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import * as PointsActions from '../../../../store/actions/pointsActions';
+import mapboxgl from 'mapbox-gl';
 interface ModalInputsProps {
   lat: number;
   lng: number;
@@ -35,9 +36,18 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal }: ModalInputsProps
       description: description
     }
   }
+
+  const addMarker = () => {
+    const marker = new mapboxgl.Marker({ draggable: true });
+    marker.setLngLat([lng, lat]);
+    // marker.addTo(mapboxMap);
+  }
+
+
   const handleClick = () => {
     const point = createPoint();
     addSinglePoints(point);
+    addMarker()
     closeModal()
   }
 

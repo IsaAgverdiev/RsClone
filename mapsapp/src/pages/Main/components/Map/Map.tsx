@@ -31,17 +31,19 @@ const Map = ({
   const [modalY, setModalY] = useState(0);
   const [pointLng, setPointLng] = useState(0);
   const [pointLat, setPointLat] = useState(0);
+  // const [coordinates, setCoordinates] = useState({
+  //   lng: 0,
+  //   lat: 0
+  // })
   const [zoom, setZoom] = useState(10);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleClick = (event: React.MouseEvent) => {
-    if (event.button === 2) {
-      setModalCoordinates(event)
-      handleOpen()
-    }
-
+    event.preventDefault();
+    setModalCoordinates(event)
+    handleOpen()
   }
 
   const setMapCoordinates = (event: MapMouseEvent) => {
@@ -70,14 +72,14 @@ const Map = ({
     if (onCreated) onCreated(mapboxMap);
     if (onLoaded) mapboxMap.once("load", () => onLoaded(mapboxMap));
 
-
     if (mapboxMap) {
       mapboxMap.on('move', () => {
         setLng(+(mapboxMap.getCenter().lng.toFixed(4)));
         setLat(+(mapboxMap.getCenter().lat.toFixed(4)));
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       });
-      mapboxMap.on('mousedown', setMapCoordinates);
+      mapboxMap.on('contextmenu', setMapCoordinates);
+
     }
 
     return () => {
@@ -94,8 +96,9 @@ const Map = ({
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div ref={mapNode} className="map-container" onMouseDown={handleClick} onContextMenu={(e) => e.preventDefault()} >
-        {/* onContextMenu={(e) => e.preventDefault()} */}
+      <div ref={mapNode} className="map-container"
+        onContextMenu={handleClick}
+      >
         <MapModal
           lat={pointLat}
           lng={pointLng}
@@ -103,7 +106,7 @@ const Map = ({
           close={handleClose}
           modalX={modalX}
           modalY={modalY}
-           />
+        />
       </div>
     </>
   )
