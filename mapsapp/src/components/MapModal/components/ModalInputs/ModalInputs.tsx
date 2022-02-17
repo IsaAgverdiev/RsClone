@@ -10,6 +10,7 @@ interface ModalInputsProps {
   lng: number;
   addSinglePoints: typeof PointsActions.addSinglePointsAction;
   closeModal: () => void
+  
 }
 
 const pointsTypes = [
@@ -40,7 +41,8 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal }: ModalInputsProps
   const addMarker = () => {
     const marker = new mapboxgl.Marker({ draggable: true });
     marker.setLngLat([lng, lat]);
-    // marker.addTo(mapboxMap);
+    console.log('%cModalInputs.tsx line:43 marker', 'color: #007acc;', marker);
+    // marker.addTo(map);
   }
 
 

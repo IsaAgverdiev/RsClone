@@ -21,6 +21,7 @@ interface MapModalProps {
   lng: number
   modalX: number;
   modalY: number;
+
 }
 
 const MapModal = ({ open, close, lat, lng, modalX, modalY }: MapModalProps) => {

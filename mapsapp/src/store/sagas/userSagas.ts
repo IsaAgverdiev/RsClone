@@ -31,7 +31,7 @@ function* loginWorker(action: ReturnType<typeof UserActions.signUpAction>) {
   try {
     const auth = getAuth();
     const user = yield* call(signInWithEmailAndPassword, auth, email, password);
-       let data = showPoints();
+    let data = showPoints();
     data.then(points => {
       const singlePoints = points.filter(point => point.type === 'single');
       addSinglePointsAction(singlePoints);

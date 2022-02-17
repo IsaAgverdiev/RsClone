@@ -12,7 +12,7 @@ const Feature1 = () => {
       <h1>Feature1</h1>
       <div className='map-wrapper' style={{ position: "relative" }}>
         <Map
-          initialOptions={{ center: [20.0983, 40.7038] }}
+          initialOptions={{ center: [36.80, 50.90] }}
           onLoaded={handleMapLoading}
         />
         {loading && <MapLoadingHolder />}
