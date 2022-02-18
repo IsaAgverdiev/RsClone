@@ -11,7 +11,7 @@ interface ModalInputsProps {
   lng: number;
   addSinglePoints: typeof PointsActions.addSinglePointsAction;
   closeModal: () => void
-  map?: mapboxgl.Map;
+  map?: mapboxgl.Map ;
 }
 
 const pointsTypes = [
@@ -19,8 +19,8 @@ const pointsTypes = [
   "Multiple"
 ];
 
-const ModalInputs = ({ lat, lng, addSinglePoints, closeModal, map }: ModalInputsProps) => {
-
+const ModalInputs = ({ lat, lng, addSinglePoints, closeModal, map }: ModalInputsProps) => { 
+  
   const [pointType, setPointType] = React.useState('');
   const [description, setDescription] = React.useState('');
 
@@ -37,12 +37,21 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal, map }: ModalInputs
       lat: lat,
       type: pointType,
       description: description,
+       }
+  }
+
+  const addMarker = () => {
+    if (map) {
+      const marker = new mapboxgl.Marker({ draggable: true });
+      marker.setLngLat([lng, lat]);
+      marker.addTo(map);
     }
   }
 
   const handleClick = () => {
     const point = createPoint();
     addSinglePoints(point);
+    addMarker()
     closeModal()
   }
 
