@@ -76,7 +76,7 @@ export async function addPointDb(point: Point) {
     await addDoc(collection(db, "points"), point);
     const querySnapshot = await getDocs(collection(db, "points"));
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
+      // console.log(doc.id, " => ", doc.data());
     });
   }
   catch (err) {

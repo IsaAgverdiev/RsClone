@@ -68,6 +68,7 @@ const MapComponent = ({ initialOptions = {}, onCreated, onLoaded, onRemoved }: M
         points.map((point) => {
           const marker = new mapboxgl.Marker()
             .setLngLat([point.lng, point.lat])
+            .setPopup(new mapboxgl.Popup().setHTML(point.description))
             .addTo(mapboxMap);
         })
       });
@@ -80,6 +81,8 @@ const MapComponent = ({ initialOptions = {}, onCreated, onLoaded, onRemoved }: M
         setLat(+(mapboxMap.getCenter().lat.toFixed(4)));
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       });
+
+      mapboxMap.on("sourcedata", ()=> console.log('%cMapComponent.tsx line:84 "Iam data"', 'color: #007acc;', "Iam data"))
 
       mapboxMap.on('contextmenu', setMapCoordinates);
     }
