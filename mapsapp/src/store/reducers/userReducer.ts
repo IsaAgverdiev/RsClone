@@ -45,8 +45,10 @@ const userReducer = createReducer(initialState, builder => {
       state.signUpError = action.payload.error;
     })
     .addCase(UserActions.signUpSuccessAction, (state, action) => {
-      state.isAuth = action.payload;
-    });
+      state.isAuth = action.payload.isAuth;
+      state.personalInfo.name = action.payload.name;
+      state.personalInfo.lastName = action.payload.lastName;
+    })
 
   // .addCase(UserActions.SignUpSuccess, (state, action) => {
   //   state.personalInfo.name = action.payload.name;

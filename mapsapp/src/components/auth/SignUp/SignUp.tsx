@@ -52,9 +52,8 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
     setPasswordValue(newValue);
   };
 
-  const handleRegister = (email: string, password: string) => {
-    // signUp(email, password, navigate, firstNameValue, lastNameValue);
-    signUp(email, password, navigate);
+  const handleRegister = (email: string, password: string, name: string, lastName: string) => {
+    signUp(email, password, navigate, firstNameValue, lastNameValue);
   };
 
   return (
@@ -136,7 +135,7 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
             </Grid>
             <Button
               type='button'
-              onClick={() => handleRegister(emailValue, passwordValue)}
+              onClick={() => handleRegister(emailValue, passwordValue, firstNameValue, lastNameValue)}
               fullWidth
               variant='contained'
               sx={{ mt: 3, mb: 2 }}>
