@@ -3,35 +3,52 @@ import { call, select } from 'typed-redux-saga';
 
 import * as UserActions from '../actions/userActions';
 import * as UserActionTypes from '../actionTypes/userActionTypes';
-import * as UserSelectors from '../selectors/userSelectors';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { addSinglePointsAction } from '../actions/pointsActions';
+import { showPoints, createUserRecord } from '../../firebase';
 
 type FirebaseError = { message: string };
 
-function* SignUpWorker(action: ReturnType<typeof UserActions.SignUp>) {
+function* SignUpWorker(action: ReturnType<typeof UserActions.signUpAction>) {
   const { email, password, navigate, name, lastName } = action.payload;
-  console.log(action.payload);
   try {
     const auth = getAuth();
     const user = yield* call(createUserWithEmailAndPassword, auth, email, password);
-    const id = user.user.uid;
-    // const id = UserSelectors.idSelector;
-    console.log('id', id);
-    console.log('user', user);
-    yield put(UserActions.SignUpSuccess(name, lastName, id))
-    
+    createUserRecord(name, lastName)
+    yield put(UserActions.signUpSuccessAction(true, name, lastName));
     navigate('/main');
   } catch (error: unknown) {
     const { message } = error as FirebaseError;
-    yield put(UserActions.signUpError(message.replace('Firebase: ', '')));
+    yield put(UserActions.signUpErrorAction(message.replace('Firebase: ', '')));
+  }
+}
+
+function* loginWorker(action: ReturnType<typeof UserActions.signUpAction>) {
+  const { email, password, navigate } = action.payload;
+  try {
+    const auth = getAuth();
+    const user = yield* call(signInWithEmailAndPassword, auth, email, password);
+    let data = showPoints();
+    data.then(points => {
+      const singlePoints = points.filter(point => point.type === 'single');
+      addSinglePointsAction(singlePoints);
+    });
+    yield put(UserActions.loginSuccessAction());
+
+    navigate('/main');
+  } catch (error: unknown) {
+    const { message } = error as FirebaseError;
+    yield put(UserActions.loginErrorAction(message.replace('Firebase: ', '')));
   }
 }
 
 function* SignUpWatcher() {
   yield takeEvery(UserActionTypes.SIGN_UP, SignUpWorker);
 }
+function* loginWatcher() {
+  yield takeEvery(UserActionTypes.LOGIN, loginWorker);
+}
 
 export default function* userSaga() {
-  yield all([SignUpWatcher()]);
+  yield all([SignUpWatcher(), loginWatcher()]);
 }

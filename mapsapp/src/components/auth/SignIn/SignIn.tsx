@@ -12,19 +12,23 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as UserActions from '../../../store/actions/userActions';
 import * as PointsActions from '../../../store/actions/pointsActions';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { showPoints } from '../../../firebase';
-import { showUserData } from '../../../firebase';
 
+//  import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+// import { showPoints } from '../../../firebase';
+// import { showUserData } from '../../../firebase';
 
 interface AccountMenuProps {
   login: typeof UserActions.loginAction;
-  addSinglePoints: typeof PointsActions.addSinglePointsAction;
+  loginError?: string;
+  // addSinglePoints: typeof PointsActions.addSinglePointsAction;
+  // name: string;
+  // lastName: string;
 }
 
 const theme = createTheme();
 
-const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints}) => {
+const SignIn: React.FC<AccountMenuProps> = ({ login, loginError }) => {
+  // const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints, name, lastName }) => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -43,24 +47,25 @@ const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints}) => {
   };
 
   const handleLogin = (email: string, password: string) => {
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        console.log(user);
-        login();
-        const uid = user.uid
-        showUserData(uid);
-        let data = showPoints()
-        data.then((points) => {
-          const singlePoints = points.filter((point) => point.type === "single")
-          addSinglePoints(singlePoints)
-        })
-        
-        navigate('/main');
-      })
-      .catch(console.error);
-  };
+    login(email, password, navigate);
 
+    //  const auth = getAuth();
+    //   signInWithEmailAndPassword(auth, email, password)
+    //     .then(({ user }) => {
+    //       console.log(user);
+    //       login();
+    //       const uid = user.uid
+    //       showUserData(uid);
+    //       let data = showPoints()
+    //       data.then((points) => {
+    //         const singlePoints = points.filter((point) => point.type === "single")
+    //         addSinglePoints(singlePoints)
+    //       })
+
+    //       navigate('/main');
+    //     })
+    //     .catch(console.error);
+  };
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
@@ -79,30 +84,33 @@ const SignIn: React.FC<AccountMenuProps> = ({ login, addSinglePoints}) => {
             Sign in
           </Typography>
           <Box component='form' noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              value={emailValue}
-              onChange={handleEmailChange}
-              id='email'
-              label='email'
-              name='email'
-              autoComplete='email'
-              autoFocus
-            />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              value={passwordValue}
-              onChange={handlePasswordChange}
-              name='password'
-              label='Password'
-              type='password'
-              id='password'
-              autoComplete='current-password'
-            />
+            <Grid>
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                value={emailValue}
+                onChange={handleEmailChange}
+                id='email'
+                label='email'
+                name='email'
+                autoComplete='email'
+                autoFocus
+              />
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                value={passwordValue}
+                onChange={handlePasswordChange}
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='current-password'
+              />
+            </Grid>
+            {loginError && <div>{loginError}</div>}
             <Button
               type='button'
               onClick={() => handleLogin(emailValue, passwordValue)}

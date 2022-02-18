@@ -13,18 +13,16 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as UserActions from '../../../store/actions/userActions';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { createUserRecord } from '../../../firebase'
-
 
 interface AccountMenuProps {
-  signUp: typeof UserActions.SignUp;
+  signUp: typeof UserActions.signUpAction;
   signUpError?: string;
+  // isLoading: typeof UserActions.isLoadingAction;
 }
 
 const theme = createTheme();
 
-const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
+const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError}) => {
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
@@ -51,11 +49,17 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
     const newValue = event.target.value;
     setPasswordValue(newValue);
   };
- 
-  const handleRegister = (email: string, password: string) => {
+
+  const handleRegister = (
+    email: string,
+    password: string,
+    firstNameValue: string,
+    lastNameValue: string
+  ) => {
     signUp(email, password, navigate, firstNameValue, lastNameValue);
+    // isLoading(true);
   };
-  console.log(signUpError);
+
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
@@ -74,7 +78,7 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
             Sign up
           </Typography>
           <Box component='form' noValidate sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete='given-name'
@@ -135,7 +139,9 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
             </Grid>
             <Button
               type='button'
-              onClick={() => handleRegister(emailValue, passwordValue)}
+              onClick={() =>
+                handleRegister(emailValue, passwordValue, firstNameValue, lastNameValue)
+              }
               fullWidth
               variant='contained'
               sx={{ mt: 3, mb: 2 }}>
@@ -145,7 +151,7 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError }) => {
               <Grid item>
                 <Link to='/sing_in'>
                   <Typography variant='body2' style={{ color: 'black' }}>
-                    Sign Up
+                    Sign In
                   </Typography>
                 </Link>
               </Grid>

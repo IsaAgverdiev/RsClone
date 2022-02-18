@@ -10,6 +10,7 @@ export interface UserState {
     id: string;
   };
   signUpError?: string;
+  loginError?: string;
 }
 
 const initialState: UserState = {
@@ -18,30 +19,54 @@ const initialState: UserState = {
   personalInfo: {
     name: '',
     lastName: '',
-    id: ''
+    id: '',
   },
   signUpError: undefined,
+  loginError: undefined,
 };
 
 const userReducer = createReducer(initialState, builder => {
   builder
     .addCase(UserActions.logoutAction, (state, action) => {
       state.isAuth = action.payload;
+      state.isLoading = false;
     })
+    // .addCase(UserActions.isLoadingAction, (state, action) => {
+    //   state.isLoading = action.payload.status;
+    // })
     .addCase(UserActions.loginAction, (state, action) => {
+      state.loginError = undefined;
+      state.isLoading = true;
+      console.log('state.isLoading',state.isLoading);
+    })
+    .addCase(UserActions.loginSuccessAction, (state, action) => {
       state.isAuth = action.payload;
+      state.isLoading = false;
+      console.log('state.isLoading',state.isLoading);
     })
-    .addCase(UserActions.signUpError, (state, action) => {
-      state.signUpError = action.payload.error;
+    .addCase(UserActions.loginErrorAction, (state, action) => {
+      state.loginError = action.payload.error;
+      state.isLoading = false;
+      console.log('state.isLoading',state.isLoading);
     })
-    .addCase(UserActions.SignUp, (state, action) => {
+    .addCase(UserActions.signUpAction, (state, action) => {
       state.signUpError = undefined;
+      state.isLoading = false;
+      console.log('state.isLoading',state.isLoading);
     })
-    .addCase(UserActions.SignUpSuccess, (state, action) => {
+
+    .addCase(UserActions.signUpErrorAction, (state, action) => {
+      state.signUpError = action.payload.error;
+      state.isLoading = false;
+      console.log('state.isLoading',state.isLoading);
+    })
+    .addCase(UserActions.signUpSuccessAction, (state, action) => {
+      state.isAuth = action.payload.isAuth;
       state.personalInfo.name = action.payload.name;
       state.personalInfo.lastName = action.payload.lastName;
-      state.personalInfo.id = action.payload.id;
-    })
+      state.isLoading = false;
+      console.log('state.isLoading',state.isLoading);
+    });
 });
 
 export default userReducer;

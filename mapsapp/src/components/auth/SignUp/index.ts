@@ -9,7 +9,8 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = {
-  signUp: UserActions.SignUp,
+  signUp: UserActions.signUpAction,
+  // isLoading: UserActions.isLoadingAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

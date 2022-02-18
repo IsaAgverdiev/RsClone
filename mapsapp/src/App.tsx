@@ -14,16 +14,18 @@ async function showUsers() {
 }
 showUsers();
 
+
 const App = () => {
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
+
   return (
     <Provider store={store}>
       <BrowserRouter>
         <div className='App'>
-          {/* <AppRouter 
-           onLoaded={handleAppLoading}/> */}
            <AppRouter/>
          {/* {loading && <LoadingScreen isLoading/>} */}
+         <LoadingScreen/>
+         
         </div>
       </BrowserRouter>
     </Provider>

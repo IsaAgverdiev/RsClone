@@ -5,6 +5,7 @@ interface LoadingProps {
   isLoading: boolean;
 }
 const LoadingScreen = ({ isLoading}: LoadingProps) => {
+  console.log('isLoading!!!!', isLoading);
   return (<Modal isOpen={isLoading}/>
   );
 

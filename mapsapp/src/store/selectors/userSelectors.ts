@@ -8,8 +8,16 @@ export const isAuthSelector = createSelector(userSelector, userState =>
   get(userState, 'isAuth', false)
 );
 
+export const isLoadingSelector = createSelector(userSelector, userState =>
+  get(userState, 'isLoading', false)
+);
+
 export const signUpErrorSelector = createSelector(userSelector, userState =>
   get(userState, 'signUpError', undefined)
+);
+
+export const loginErrorSelector = createSelector(userSelector, userState =>
+  get(userState, 'loginError', undefined)
 );
 
 export const personalInfoSelector = createSelector(userSelector, userState =>
