@@ -5,12 +5,13 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import * as PointsActions from '../../../../store/actions/pointsActions';
 import mapboxgl from 'mapbox-gl';
+
 interface ModalInputsProps {
   lat: number;
   lng: number;
   addSinglePoints: typeof PointsActions.addSinglePointsAction;
   closeModal: () => void
-  
+  map?: mapboxgl.Map;
 }
 
 const pointsTypes = [
@@ -18,7 +19,8 @@ const pointsTypes = [
   "Multiple"
 ];
 
-const ModalInputs = ({ lat, lng, addSinglePoints, closeModal }: ModalInputsProps) => {
+const ModalInputs = ({ lat, lng, addSinglePoints, closeModal, map }: ModalInputsProps) => {
+
   const [pointType, setPointType] = React.useState('');
   const [description, setDescription] = React.useState('');
 
@@ -34,22 +36,13 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal }: ModalInputsProps
       lng: lng,
       lat: lat,
       type: pointType,
-      description: description
+      description: description,
     }
   }
-
-  const addMarker = () => {
-    const marker = new mapboxgl.Marker({ draggable: true });
-    marker.setLngLat([lng, lat]);
-    console.log('%cModalInputs.tsx line:43 marker', 'color: #007acc;', marker);
-    // marker.addTo(map);
-  }
-
 
   const handleClick = () => {
     const point = createPoint();
     addSinglePoints(point);
-    addMarker()
     closeModal()
   }
 

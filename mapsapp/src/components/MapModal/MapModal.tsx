@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import './mapModal.scss'
 import ModalInputs from './components/ModalInputs';
+import mapboxgl from "mapbox-gl";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -21,10 +22,10 @@ interface MapModalProps {
   lng: number
   modalX: number;
   modalY: number;
-
+  map?: mapboxgl.Map ;
 }
 
-const MapModal = ({ open, close, lat, lng, modalX, modalY }: MapModalProps) => {
+const MapModal = ({ open, close, lat, lng, modalX, modalY, map }: MapModalProps) => {
 
   const setModalPosition = () => {
     let modalPosition = {
@@ -52,7 +53,7 @@ const MapModal = ({ open, close, lat, lng, modalX, modalY }: MapModalProps) => {
     >
       <Box sx={style} style={position}
         onMouseLeave={close}>
-        <ModalInputs lat={lat} lng={lng} closeModal={close} />
+        <ModalInputs lat={lat} lng={lng} closeModal={close} map={map} />
       </Box>
     </Modal>
   );

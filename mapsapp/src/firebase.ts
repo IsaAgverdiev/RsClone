@@ -52,6 +52,7 @@ export async function createUserRecord(name: string, lastName: string) {
 export async function showUserData(id: string) {
   const docRef = doc(db, 'users', id);
   const docSnap = await getDoc(docRef);
+  console.log(docSnap)
   if (docSnap.exists()) {
     console.log('Document data:', docSnap.data());
   } else {
@@ -59,11 +60,20 @@ export async function showUserData(id: string) {
   }
 }
 
-
+export async function showUsersData() {
+  const docRef = doc(db, 'users');
+  const docSnap = await getDoc(docRef);
+  console.log(docSnap)
+  if (docSnap.exists()) {
+    console.log('Document data:', docSnap.data());
+  } else {
+    console.log('No such document!');
+  }
+}
 
 export async function addPointDb(point: Point) {
   try {
-    await addDoc(collection(db, "points"), point);    
+    await addDoc(collection(db, "points"), point);
     const querySnapshot = await getDocs(collection(db, "points"));
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());
