@@ -3,6 +3,8 @@ import mapboxgl, { Map, MapMouseEvent, Marker } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { showPoints } from "../../firebase";
 import MapModal from "../MapModal";
+import './mapComponent.scss'
+import { eventNames } from "process";
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFraGl0ciIsImEiOiJja3h4a3ViNGMwamd5Mm9ycTB2NjM5ZGhjIn0.ZLAA9nNM-a2DTiWN1YrGHQ"
@@ -25,13 +27,22 @@ const MapComponent = ({ initialOptions = {}, onCreated, onLoaded, onRemoved }: M
   const [pointLat, setPointLat] = useState(0);
   const [zoom, setZoom] = useState(10);
   const [open, setOpen] = useState(false);
+  const [openChangeModal, setOpenChangeModal] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleClick = (event: React.MouseEvent) => {
+  const handleClick = (event: React.MouseEvent<Element, MouseEvent>) => {
     event.preventDefault();
-    setModalCoordinates(event)
-    handleOpen()
+    if ((event.target as Element).className.includes('marker-el')) {
+      setOpenChangeModal(true)
+      console.log(openChangeModal);
+    } else {
+      setOpenChangeModal(false)
+      console.log(openChangeModal);
+      setModalCoordinates(event)
+      handleOpen()
+    }
   }
 
   const setMapCoordinates = (event: MapMouseEvent) => {
@@ -66,10 +77,14 @@ const MapComponent = ({ initialOptions = {}, onCreated, onLoaded, onRemoved }: M
       let data = showPoints();
       data.then(points => {
         points.map((point) => {
-          const marker = new mapboxgl.Marker()
+          const el = document.createElement('div')
+          el.classList.add("marker-el")
+          const marker = new mapboxgl.Marker(el)
             .setLngLat([point.lng, point.lat])
             .setPopup(new mapboxgl.Popup().setHTML(point.description))
             .addTo(mapboxMap);
+          // el.addEventListener("contextmenu", () => handleClick)
+          el.addEventListener("contextmenu", () => marker.remove())
         })
       });
       onLoaded(mapboxMap)
@@ -81,8 +96,6 @@ const MapComponent = ({ initialOptions = {}, onCreated, onLoaded, onRemoved }: M
         setLat(+(mapboxMap.getCenter().lat.toFixed(4)));
         setZoom(+(mapboxMap.getZoom().toFixed(2)));
       });
-
-      mapboxMap.on("sourcedata", ()=> console.log('%cMapComponent.tsx line:84 "Iam data"', 'color: #007acc;', "Iam data"))
 
       mapboxMap.on('contextmenu', setMapCoordinates);
     }
@@ -111,7 +124,7 @@ const MapComponent = ({ initialOptions = {}, onCreated, onLoaded, onRemoved }: M
           modalX={modalX}
           modalY={modalY}
           map={map}
-           />
+        />
 
       </div>
     </>
