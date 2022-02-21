@@ -14,9 +14,11 @@ import Map from '../../pages/Main/components/Map';
 interface AppRouterProps {
   authorized: boolean;
   name: string | null;
+  // onLoaded: boolean;
 }
 
 const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
+  // console.log(onLoaded)
   return authorized ? (
     <Routes>
       <Route path='/home' element={<Home />} />
@@ -27,7 +29,7 @@ const AppRouter: React.FC<AppRouterProps> = ({ authorized, name }) => {
         <Route path='Feature2' element={<Feature2 />} />
         <Route path='Feature3' element={<Feature3 />} />
         <Route path='/main/profile' element={<Profile />} />
-        <Route path='/main/settings' element={<Settings />} />
+        <Route path='/main/settings' element={<Settings />} /> 
       </Route>
       <Route path='*' element={<Navigate to='/main' />} />
     </Routes>

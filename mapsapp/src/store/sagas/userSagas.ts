@@ -3,11 +3,9 @@ import { call, select } from 'typed-redux-saga';
 
 import * as UserActions from '../actions/userActions';
 import * as UserActionTypes from '../actionTypes/userActionTypes';
-import * as UserSelectors from '../selectors/userSelectors';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import * as PointsActions from '../actions/pointsActions';
 import { addSinglePointsAction } from '../actions/pointsActions';
-import { createUserRecord, showPoints } from '../../firebase';
+import { showPoints, createUserRecord } from '../../firebase';
 
 type FirebaseError = { message: string };
 
@@ -16,9 +14,8 @@ function* SignUpWorker(action: ReturnType<typeof UserActions.signUpAction>) {
   try {
     const auth = getAuth();
     const user = yield* call(createUserWithEmailAndPassword, auth, email, password);
-    createUserRecord(name, lastName);
+    createUserRecord(name, lastName)
     yield put(UserActions.signUpSuccessAction(true, name, lastName));
-    yield put(UserActions.isLoadingAction(false));
     navigate('/main');
   } catch (error: unknown) {
     const { message } = error as FirebaseError;

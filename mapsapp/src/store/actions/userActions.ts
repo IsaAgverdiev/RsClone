@@ -5,9 +5,9 @@ export const logoutAction = createAction(UserActionTypes.LOGOUT, () => ({
   payload: false,
 }));
 
-export const isLoadingAction = createAction(UserActionTypes.IS_LOADING, status => ({
-  payload: { status },
-}));
+// export const isLoadingAction = createAction(UserActionTypes.IS_LOADING, status => ({
+//   payload: { status },
+// }));
 
 export const loginAction = createAction(UserActionTypes.LOGIN, (email, password, navigate) => ({
   payload: { email, password, navigate },
