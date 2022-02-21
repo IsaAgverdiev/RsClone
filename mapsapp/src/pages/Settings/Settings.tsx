@@ -9,8 +9,14 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings2 from '@mui/icons-material/Settings';
-import * as UserActions from '../../store/actions/userActions';
+//import * as UserActions from '../../store/actions/userActions';
 
+// interface SettingsProps {
+//   name: string;
+//   lastName: string;
+//   id: string; 
+//   updateUserData: typeof UserActions.SignUpSuccess;
+// }
 interface SettingsProps {
   name: string;
   lastName: string;

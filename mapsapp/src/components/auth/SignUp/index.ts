@@ -10,7 +10,7 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = {
   signUp: UserActions.signUpAction,
-  isLoading: UserActions.isLoadingAction,
+  // isLoading: UserActions.isLoadingAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

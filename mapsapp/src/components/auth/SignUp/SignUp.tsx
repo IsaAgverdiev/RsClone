@@ -17,12 +17,12 @@ import * as UserActions from '../../../store/actions/userActions';
 interface AccountMenuProps {
   signUp: typeof UserActions.signUpAction;
   signUpError?: string;
-  isLoading: typeof UserActions.isLoadingAction;
+  // isLoading: typeof UserActions.isLoadingAction;
 }
 
 const theme = createTheme();
 
-const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError, isLoading }) => {
+const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError}) => {
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
@@ -57,7 +57,7 @@ const SignUp: React.FC<AccountMenuProps> = ({ signUp, signUpError, isLoading }) 
     lastNameValue: string
   ) => {
     signUp(email, password, navigate, firstNameValue, lastNameValue);
-    isLoading(true);
+    // isLoading(true);
   };
 
   return (

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -16,7 +15,10 @@ interface ProfileProps {
 const theme = createTheme();
 
 const Profile:React.FC<ProfileProps> = ({name, lastName}) => {
+  console.log('name', name);
+  console.log('name2', lastName);
   return (
+
     <ThemeProvider theme={theme}>
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
@@ -40,6 +42,7 @@ const Profile:React.FC<ProfileProps> = ({name, lastName}) => {
               flexDirection: 'column',
               alignItems: 'start',
               border: 1,
+              height: 20,
         }}>
           {name}</Box>
               </Grid>
@@ -50,6 +53,7 @@ const Profile:React.FC<ProfileProps> = ({name, lastName}) => {
               flexDirection: 'column',
               alignItems: 'start',
               border: 1,
+              height: 20,
         }}>
           {lastName}</Box>
               </Grid>
