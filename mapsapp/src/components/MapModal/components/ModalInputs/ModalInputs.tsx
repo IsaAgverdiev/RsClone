@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import * as PointsActions from '../../../../store/actions/pointsActions';
 import mapboxgl from 'mapbox-gl';
+import { MarkEmailReadRounded } from '@mui/icons-material';
 
 interface ModalInputsProps {
   lat: number;
@@ -42,9 +43,15 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal, map }: ModalInputs
 
   const addMarker = (description: string) => {
     if (map) {
-      const marker = new mapboxgl.Marker({ draggable: true });
+      const popup = new mapboxgl.Popup().setHTML(description)
+      const markerEl = document.createElement('div');
+      markerEl.classList.add("marker-el")
+      markerEl.addEventListener('contextmenu', (event) => {
+       console.log("i am marker el")
+      })
+      const marker = new mapboxgl.Marker(markerEl);
       marker.setLngLat([lng, lat]);
-      marker.setPopup(new mapboxgl.Popup().setHTML(description));
+      marker.setPopup(popup);
       marker.addTo(map);
     }
   }

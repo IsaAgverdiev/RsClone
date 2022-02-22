@@ -21,6 +21,7 @@ import SignedInLinks from '../../components/NavBar/components/SignedInLinks';
 import AppBar from './components/AppBar';
 import MainSection from './components/MainSection';
 import DrawerHeader from './components/DrawerHeader';
+import DrawerFooter from '../../components/Footer/Footer';
 
 export const drawerWidth = 240;
 
@@ -92,6 +93,7 @@ export default function Main() {
       <MainSection open={open}>
         <DrawerHeader />
         <Outlet />
+        <DrawerFooter />
       </MainSection>
     </Box>
   );
