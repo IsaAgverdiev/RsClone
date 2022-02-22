@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import AppRouter from './components/AppRouter';
@@ -16,16 +15,13 @@ showUsers();
 
 
 const App = () => {
-  //const [loading, setLoading] = useState(true);
 
   return (
     <Provider store={store}>
       <BrowserRouter>
         <div className='App'>
            <AppRouter/>
-         {/* {loading && <LoadingScreen isLoading/>} */}
          <LoadingScreen/>
-         
         </div>
       </BrowserRouter>
     </Provider>
