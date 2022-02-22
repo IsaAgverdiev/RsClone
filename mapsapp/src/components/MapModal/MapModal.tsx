@@ -8,7 +8,7 @@ import mapboxgl from "mapbox-gl";
 const style = {
   position: 'absolute' as 'absolute',
   width: 400,
-  height: 450,
+  height: 500,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,

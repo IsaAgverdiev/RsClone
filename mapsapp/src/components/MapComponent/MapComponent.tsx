@@ -76,14 +76,19 @@ const MapComponent = ({ initialOptions = {}, onCreated, onLoaded, onRemoved }: M
     if (onLoaded) mapboxMap.once("load", () => {
       let data = showPoints();
       data.then(points => {
+        console.log('%cMapComponent.tsx line:79 point', 'color: #007acc;', points);
         points.map((point) => {
           const el = document.createElement('div')
           el.classList.add("marker-el")
           const marker = new mapboxgl.Marker(el)
             .setLngLat([point.lng, point.lat])
-            .setPopup(new mapboxgl.Popup().setHTML(point.description))
+            .setPopup(new mapboxgl.Popup().setHTML(
+              `<h3>${point.name}</h3>
+              <div>${point.description}</div>
+              // <a href="/home">В тайник</a>
+             `
+            ))
             .addTo(mapboxMap);
-          // el.addEventListener("contextmenu", () => handleClick)
           el.addEventListener("contextmenu", () => marker.remove())
         })
       });
