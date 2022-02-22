@@ -30,14 +30,18 @@ export const db = getFirestore(firebaseApp);
 
 export async function getFirebaseFolder(db: Firestore, folderName: string) {
   const dataSnapshot = await getDocs(collection(db, folderName));
+
   const dataList = dataSnapshot.docs.map(doc => doc.data());
+ 
   return dataList;
 }
 
 export async function showPoints() {
+
   const pointsList = await getFirebaseFolder(db, 'points');
   console.log('%cApp.tsx line:17 pointsList', 'color: #26bfa5;', pointsList);
   return pointsList;
+
 }
 
 export async function createUserRecord(name: string, lastName: string) {
@@ -76,7 +80,7 @@ export async function addPointDb(point: Point) {
     await addDoc(collection(db, "points"), point);
     const querySnapshot = await getDocs(collection(db, "points"));
     querySnapshot.forEach((doc) => {
-      // console.log(doc.id, " => ", doc.data());
+      console.log(doc.id, " => ", doc.data());
     });
   }
   catch (err) {
