@@ -81,9 +81,11 @@ const MapComponent = ({ initialOptions = {}, onCreated, onLoaded, onRemoved }: M
           el.classList.add("marker-el")
           const marker = new mapboxgl.Marker(el)
             .setLngLat([point.lng, point.lat])
-            .setPopup(new mapboxgl.Popup().setHTML(point.description))
+            .setPopup(new mapboxgl.Popup().setHTML(
+              `<h3>${point.name}</h3>
+              <div>${point.description}</div>`
+            ))
             .addTo(mapboxMap);
-          // el.addEventListener("contextmenu", () => handleClick)
           el.addEventListener("contextmenu", () => marker.remove())
         })
       });

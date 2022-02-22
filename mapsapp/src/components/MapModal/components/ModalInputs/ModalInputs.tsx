@@ -5,8 +5,6 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import * as PointsActions from '../../../../store/actions/pointsActions';
 import mapboxgl from 'mapbox-gl';
-import { MarkEmailReadRounded } from '@mui/icons-material';
-
 interface ModalInputsProps {
   lat: number;
   lng: number;
@@ -24,6 +22,7 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal, map }: ModalInputs
 
   const [pointType, setPointType] = React.useState('');
   const [description, setDescription] = React.useState('');
+  const [name, setName] = React.useState('');
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPointType(event.target.value);
@@ -31,9 +30,13 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal, map }: ModalInputs
   const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(event.target.value);
   };
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
 
   const createPoint = () => {
     return {
+      name: name,
       lng: lng,
       lat: lat,
       type: pointType,
@@ -41,14 +44,13 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal, map }: ModalInputs
     }
   }
 
-  const addMarker = (description: string) => {
+  const addMarker = (name: string, description: string) => {
     if (map) {
-      const popup = new mapboxgl.Popup().setHTML(description)
+      const popup = new mapboxgl.Popup().setHTML( `<h3>${name}</h3>
+      <div>${description}</div>`)
       const markerEl = document.createElement('div');
       markerEl.classList.add("marker-el")
-      markerEl.addEventListener('contextmenu', (event) => {
-       console.log("i am marker el")
-      })
+
       const marker = new mapboxgl.Marker(markerEl);
       marker.setLngLat([lng, lat]);
       marker.setPopup(popup);
@@ -60,7 +62,7 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal, map }: ModalInputs
   const handleClick = () => {
     const point = createPoint();
     addSinglePoints(point);
-    addMarker(point.description)
+    addMarker(point.name, point.description)
     closeModal()
   }
 
@@ -74,6 +76,13 @@ const ModalInputs = ({ lat, lng, addSinglePoints, closeModal, map }: ModalInputs
       autoComplete="off"
     >
       <div>
+      <TextField
+          required
+          id="outlined-name"
+          label="Name"
+          type="text"
+          onChange={handleNameChange}
+        />
         <TextField
           required
           id="outlined-select-type"
